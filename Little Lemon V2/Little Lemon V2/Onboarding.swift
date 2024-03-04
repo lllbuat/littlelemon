@@ -7,9 +7,62 @@
 
 import SwiftUI
 
+let kFirstName = "key_firstName"
+let kLastName = "key_lastName"
+let kEmail = "key_Email"
+let kIsLoggedIn = "key_IsLoggedIn"
+
 struct Onboarding: View {
+    @State private var showAlert = false
+    @State private var isLoggedIn = false
+    
+    @State private var firstName = ""
+    @State private var lastName = ""
+    @State private var email = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        NavigationStack{
+            
+            VStack{
+                TextField("First Name",
+                          text: $firstName)
+                TextField("Last Name",
+                          text: $lastName)
+                TextField("Email",
+                          text: $email)
+                Button(action: {
+                    if (firstName.isEmpty) || (lastName.isEmpty) || (email.isEmpty) {
+                        self.showAlert = true
+                    } else {
+                        UserDefaults.standard.set(firstName, forKey: kFirstName)
+                        UserDefaults.standard.set(lastName, forKey: kLastName)
+                        UserDefaults.standard.set(email, forKey: kEmail)
+                        self.isLoggedIn = true
+                        UserDefaults.standard.set(isLoggedIn, forKey: kIsLoggedIn)
+                    }
+                }, label: {
+                    Text("Register")
+                })
+            }
+            .padding()
+            .alert("Empty First Name/Last Name/Email",
+                   isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
+            }
+           .navigationDestination(isPresented: $isLoggedIn) {
+              Home()
+           }
+           .onAppear {
+               self.isLoggedIn = UserDefaults.standard.bool(forKey: kIsLoggedIn)
+               self.firstName = ""
+               self.lastName = ""
+               self.email = ""
+           }
+        }
+
+
+            
     }
 }
 
