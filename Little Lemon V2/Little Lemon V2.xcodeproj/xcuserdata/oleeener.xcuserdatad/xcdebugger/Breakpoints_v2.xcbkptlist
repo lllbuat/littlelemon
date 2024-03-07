@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "6A3179E6-D858-4C62-A741-E43097BE1B0D"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1998A012-1DFC-4C99-9B2D-3E2A9EED2A21"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Little Lemon V2/DishExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "createDishesFrom(menuItems:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1998A012-1DFC-4C99-9B2D-3E2A9EED2A21 - a23e609c58e17e7a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.createDishesFrom(menuItems: Swift.Array&lt;Little_Lemon_V2.MenuItem&gt;, _: __C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "1572">
+               </Location>
+               <Location
+                  uuid = "1998A012-1DFC-4C99-9B2D-3E2A9EED2A21 - a23e609c58e17e7a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.createDishesFrom(menuItems: Swift.Array&lt;Little_Lemon_V2.MenuItem&gt;, _: __C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "1576">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E2CCB49D-A0A2-4AA9-94FE-35DC394A7A78"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Little Lemon V2/DishExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "createDishesFrom(menuItems:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E2CCB49D-A0A2-4AA9-94FE-35DC394A7A78 - a23e609c58e17e9d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.createDishesFrom(menuItems: Swift.Array&lt;Little_Lemon_V2.MenuItem&gt;, _: __C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "1592">
+               </Location>
+               <Location
+                  uuid = "E2CCB49D-A0A2-4AA9-94FE-35DC394A7A78 - a23e609c58e17ebc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.createDishesFrom(menuItems: Swift.Array&lt;Little_Lemon_V2.MenuItem&gt;, _: __C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "1636">
+               </Location>
+               <Location
+                  uuid = "E2CCB49D-A0A2-4AA9-94FE-35DC394A7A78 - a23e609c58e17e9d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.createDishesFrom(menuItems: Swift.Array&lt;Little_Lemon_V2.MenuItem&gt;, _: __C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "1596">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "60A0CF5D-A00B-454A-935F-1D5B9AC62272"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Little Lemon V2/DishExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "createDishesFrom(menuItems:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "60A0CF5D-A00B-454A-935F-1D5B9AC62272 - a23e609c58e17ebc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.createDishesFrom(menuItems: Swift.Array&lt;Little_Lemon_V2.MenuItem&gt;, _: __C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "1636">
+               </Location>
+               <Location
+                  uuid = "60A0CF5D-A00B-454A-935F-1D5B9AC62272 - a23e609c58e17ebc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.createDishesFrom(menuItems: Swift.Array&lt;Little_Lemon_V2.MenuItem&gt;, _: __C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "1656">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8651F1AC-4CE8-4AAB-95A4-887ECCE2352B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Little Lemon V2/DishExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "save(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8651F1AC-4CE8-4AAB-95A4-887ECCE2352B - 24effaaad367c9fa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.save(__C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "8651F1AC-4CE8-4AAB-95A4-887ECCE2352B - 24effaaad367c9db"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Little_Lemon_V2.Dish.save(__C.NSManagedObjectContext) -&gt; ()"
+                  moduleName = "Little Lemon V2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/oleeener/code/xcode/m11_littlelemon/littlelemon/Little%20Lemon%20V2/Little%20Lemon%20V2/DishExtension.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "316">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
