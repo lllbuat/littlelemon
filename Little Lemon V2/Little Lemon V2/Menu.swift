@@ -48,7 +48,7 @@ struct Menu: View {
     func getMenuData() {
 //        PersistenceController.shared.clear()
         print("getMenuData 1 ", Dish.countRecords(context))
-        Dish.deleteAll(context)
+//        Dish.deleteAll(context)
 //        PersistenceController.shared.clear()
         print("getMenuData 2 ", Dish.countRecords(context))
         
