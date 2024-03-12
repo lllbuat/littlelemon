@@ -24,7 +24,7 @@ struct FetchedObjects<T, Content>: View where T : NSManagedObject, Content : Vie
   
   
   var body: some View {
-      let _ = print("FetchObject ",results.count)
+//      let _ = print("FetchObject ",results.count)
     self.content(results.map { $0 })
   }
   
