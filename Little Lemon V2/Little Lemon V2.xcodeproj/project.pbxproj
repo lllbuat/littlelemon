@@ -31,6 +31,7 @@
 		AE73222B2B91BE0D005B665B /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE73222A2B91BE0D005B665B /* Home.swift */; };
 		AE73222D2B91BE31005B665B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE73222C2B91BE31005B665B /* Menu.swift */; };
 		AEA622BD2B95B5FB004BFC8E /* DishExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */; };
+		AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		AE73222A2B91BE0D005B665B /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		AE73222C2B91BE31005B665B /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishExtension.swift; sourceTree = "<group>"; };
+		AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempSample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		AE7322122B91B923005B665B /* Little Lemon V2 */ = {
 			isa = PBXGroup;
 			children = (
+				AEA8D2492BA1473800BDCBF7 /* Sample */,
 				AE4EB2902B9FEBD800E83EF0 /* Constants */,
 				AE08C2DB2B9EE72F00AEA573 /* Little-Lemon-V2-Info.plist */,
 				AE08C2D92B9EE64100AEA573 /* Fonts */,
@@ -119,7 +122,6 @@
 				AEA309702B9ECFB9002969C1 /* Onboarding */,
 				AE7322132B91B923005B665B /* Little_Lemon_V2App.swift */,
 				AE7322152B91B923005B665B /* ContentView.swift */,
-				AE08C2DD2B9EE98B00AEA573 /* FontFamilySample.swift */,
 				AE7322282B91B9AB005B665B /* Onboarding.swift */,
 				AE2EF82C2B95A95400663F18 /* ExampleDatabase.xcdatamodeld */,
 				AE73222C2B91BE31005B665B /* Menu.swift */,
@@ -165,6 +167,15 @@
 				AE2EF8242B95975700663F18 /* UserProfile.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		AEA8D2492BA1473800BDCBF7 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				AE08C2DD2B9EE98B00AEA573 /* FontFamilySample.swift */,
+				AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */,
+			);
+			path = Sample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +255,7 @@
 				AE4EB2922B9FEBE300E83EF0 /* Fonts.swift in Sources */,
 				AE73221D2B91B925005B665B /* Persistence.swift in Sources */,
 				AE7322162B91B923005B665B /* ContentView.swift in Sources */,
+				AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */,
 				AE4EB2942B9FF6AF00E83EF0 /* Colors.swift in Sources */,
 				AE08C2DE2B9EE98B00AEA573 /* FontFamilySample.swift in Sources */,
 				AE73222D2B91BE31005B665B /* Menu.swift in Sources */,

@@ -9,15 +9,15 @@ import Foundation
 import SwiftUI
 
 struct Colors {
-    static let DarkGreen: Color = Color("DarkGreen")
-    static let LightGreen: Color = Color("LightGreen")
+    static let DarkGreen: Color = Color("ColorDarkGreen")
+    static let LightGreen: Color = Color("ColorLightGreen")
     
-    static let Peach: Color = Color("Peach")
-    static let LightPeach: Color = Color("LightPeach")
+    static let Peach: Color = Color("ColorPeach")
+    static let LightPeach: Color = Color("ColorLightPeach")
     
-    static let Yellow: Color = Color("Yellow")
+    static let Yellow: Color = Color("ColorYellow")
     
-    static let DarkGray: Color = Color("DarkGray")
-    static let Gray: Color = Color("Gray")
-    static let LightGray: Color = Color("LightGray")
+    static let DarkGray: Color = Color("ColorDarkGray")
+    static let Gray: Color = Color("ColorGray")
+    static let LightGray: Color = Color("ColorLightGray")
 }

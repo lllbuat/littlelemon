@@ -13,7 +13,10 @@ struct Little_Lemon_V2App: App {
 
     var body: some Scene {
         WindowGroup {
-            FontFamilySample()
+            TempSample()
+            
+//            FontFamilySample()
+//            UserProfile()
 //            Onboarding()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }

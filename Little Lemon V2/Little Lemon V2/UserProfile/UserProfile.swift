@@ -6,14 +6,25 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct UserProfile: View {
+    @State private var isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
+    
     @State private var firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
     @State private var lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
     @State private var email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
     @State private var phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
-    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
     
+    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+    
+    @State private var avatarItem: PhotosPickerItem?
+    @State private var avatarImage: Image = Image("profile-image-placeholder")
+    
+    @State private var showAlert = false
     
     @Environment(\.presentationMode) var presentation
     
@@ -31,9 +42,14 @@ struct UserProfile: View {
                 .foregroundStyle(Colors.Gray)
             
             HStack {
-                Image("profile-image-placeholder")
+                avatarImage
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 75, height: 75)
                 
-                Button("Change") { }
+                Button("Change") { 
+                    // open photo library to select image
+                }
                     .padding([.top, .bottom], 10)
                     .padding([.leading, .trailing], 15)
                     .font(Font(Fonts.LeadText))
@@ -41,65 +57,87 @@ struct UserProfile: View {
                     .background(Colors.DarkGreen)
                     .cornerRadius(10)
                 
-                Button("Remove") { }
+//                PhotosPicker("Select avatar", selection: $avatarItem, matching: .images)
+//                .onChange(of: avatarItem) {
+//                    Task {
+//                        if let loaded = try? await avatarItem?.loadTransferable(type: Image.self) {
+//                            avatarImage = loaded
+//                        } else {
+//                            print("Failed")
+//                        }
+//                    }
+//                }
+                
+                Button("Remove") { 
+                    // remove image from app
+                }
                     .padding([.top, .bottom], 10)
                     .padding([.leading, .trailing], 15)
                     .font(Font(Fonts.LeadText))
                     .foregroundColor(Colors.DarkGray)
                     .background(.white)
-                    .border(Colors.DarkGreen)
+                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
+                Spacer()
             }
-
-            List {
-                Section(header: Text("First name")
-                    .font(Font(Fonts.HighlightText))
-                    .foregroundStyle(Colors.Gray)
-                ) {
-                    TextField(firstName, text: $firstName)
-                        .font(Font(Fonts.ParagraphText))
-                }
-                
-                Section(header: Text("Last name")
-                    .font(Font(Fonts.HighlightText))
-                    .foregroundStyle(Colors.Gray)
-                ) {
-                    TextField(lastName, text: $lastName)
-                        .font(Font(Fonts.ParagraphText))
-                }
-            }
-//            .listStyle(.sidebar)
-//            .scrollContentBackground(.hidden)
-//            .background(.red)
-
             
-
+            Text("First name")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(Font(Fonts.HighlightText))
+                .foregroundStyle(Colors.DarkGray)
+            
+            TextField(firstName, text: $firstName)
+                .font(Font(Fonts.ParagraphText))
+                .foregroundStyle(Colors.DarkGray)
+                .padding(10)
+                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
+            
+            Text("Last name")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(Font(Fonts.HighlightText))
+                .foregroundStyle(Colors.DarkGray)
+            
+            TextField(lastName, text: $lastName)
+                .font(Font(Fonts.ParagraphText))
+                .foregroundStyle(Colors.DarkGray)
+                .padding(10)
+                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
             
             Text("Email")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(Font(Fonts.HighlightText))
-                .foregroundStyle(Colors.Gray)
+                .foregroundStyle(Colors.DarkGray)
             
             TextField(email, text: $email)
                 .font(Font(Fonts.ParagraphText))
-                .textFieldStyle(.roundedBorder)
-                .foregroundStyle(.black)
+                .foregroundStyle(Colors.DarkGray)
+                .padding(10)
+                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
             
             Text("Phone number")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(Font(Fonts.HighlightText))
-                .foregroundStyle(Colors.Gray)
+                .foregroundStyle(Colors.DarkGray)
             
             TextField(phoneNumber, text: $phoneNumber)
                 .font(Font(Fonts.ParagraphText))
-                .textFieldStyle(.roundedBorder)
-                .foregroundStyle(.black)
-                
+                .foregroundStyle(Colors.DarkGray)
+                .padding(10)
+                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
+            
             Text("Email Notifications")
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(Font(Fonts.CardTitle))
                 .foregroundStyle(Colors.DarkGray)
-            // checkboxes
-            Toggle("Order Status", isOn: $emailOptionOrderStatus)
-                .toggleStyle(CheckboxStyle())
+            
+            Group {
+                Toggle("Order status", isOn: $emailOptionOrderStatus)
+                Toggle("Password changes", isOn: $emailOptionPasswordChanges)
+                Toggle("Special offers", isOn: $emailOptionSpecialOffer)
+                Toggle("Newsletter", isOn: $emailOptionNewsletter)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .toggleStyle(CheckboxStyle())
+            .font(Font(Fonts.ParagraphText))
             
             Button("Log out") {
                 UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
@@ -107,6 +145,7 @@ struct UserProfile: View {
             }
             .padding([.top, .bottom], 10)
             .padding([.leading, .trailing], 15)
+            .frame(maxWidth: .infinity)
             .font(Font(Fonts.LeadText))
             .foregroundColor(Colors.DarkGray)
             .background(Colors.Yellow)
@@ -114,15 +153,32 @@ struct UserProfile: View {
             
             HStack {
                 Button("Disgard changes") {
+                    // show alert and move to home
                 }
                 .padding([.top, .bottom], 10)
                 .padding([.leading, .trailing], 15)
                 .font(Font(Fonts.LeadText))
                 .foregroundColor(Colors.DarkGray)
                 .background(.white)
-                .border(Colors.DarkGreen)
+                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
                 
                 Button("Save changes") {
+                    if (firstName.isEmpty) || (lastName.isEmpty) || (email.isEmpty) || (phoneNumber.isEmpty) {
+                        self.showAlert = true
+                    } else {
+                        UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
+                        UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
+                        UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
+                        UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
+                        
+                        UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+                        UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+                        UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+                        UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+                        
+                        self.isLoggedIn = true
+                        UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
+                    }
                 }
                 .padding([.top, .bottom], 10)
                 .padding([.leading, .trailing], 15)
@@ -132,9 +188,12 @@ struct UserProfile: View {
                 .cornerRadius(10)
             }
         }
-//        .background(.green)
         .padding([.top, .bottom], 10)
         .padding([.leading, .trailing], 15)
+        .alert("Empty First Name/Last Name/Email/Phone Number",
+               isPresented: $showAlert) {
+            Button("OK", role: .cancel) { }
+        }
     }
 }
 
@@ -156,3 +215,4 @@ struct CheckboxStyle: ToggleStyle {
         .onTapGesture { configuration.isOn.toggle() }
     }
 }
+
