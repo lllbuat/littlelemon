@@ -9,25 +9,40 @@ import SwiftUI
 import PhotosUI
 
 struct TempSample: View {
-    @State private var test: String = "Hello World"
+    @State private var test: String = ""
+//    
+//    @State private var avatarItem: PhotosPickerItem?
+//    @State private var avatarImage: Image?
+//    
+//    let myFont = Font(Fonts.DisplayTitle).leading(.tight)
     
-    @State private var avatarItem: PhotosPickerItem?
-    @State private var avatarImage: Image?
+    let meals = ["bread","milk","burger","fries","fish","veggies"]
     
     var body: some View {
-        VStack {
-            Button("Change") {
-                // open photo library to select image
-            }
-            
-            avatarImage?
-                .resizable()
-                .scaledToFit()
-                .frame(width: 300, height: 300)
-        }
+//        VStack {
+//            Button("Change") {
+//                // open photo library to select image
+//            }
+//            
+//            avatarImage?
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 300, height: 300)
+//        }
 
-        
-//        Text(test)
+        NavigationStack {
+            List {
+                ForEach(meals, id: \.self) { meal in
+                   Text(meal)
+                }
+//                .listRowSeparator(.hidden,
+//                                  edges: .all)
+            }
+//            .listStyle(.plain)
+            .navigationTitle("Find Your Next Meal")
+            .searchable(text: $test)
+            
+        }
         
 //        VStack {
 //            TextField(test, text: $test)

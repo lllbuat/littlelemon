@@ -57,17 +57,6 @@ struct UserProfile: View {
                     .background(Colors.DarkGreen)
                     .cornerRadius(10)
                 
-//                PhotosPicker("Select avatar", selection: $avatarItem, matching: .images)
-//                .onChange(of: avatarItem) {
-//                    Task {
-//                        if let loaded = try? await avatarItem?.loadTransferable(type: Image.self) {
-//                            avatarImage = loaded
-//                        } else {
-//                            print("Failed")
-//                        }
-//                    }
-//                }
-                
                 Button("Remove") { 
                     // remove image from app
                 }

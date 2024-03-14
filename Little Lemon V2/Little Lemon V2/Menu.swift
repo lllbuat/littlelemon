@@ -14,13 +14,68 @@ struct Menu: View {
     
     var body: some View {
         VStack{
-            Text("Little Lemon")
-            Text("Chicago")
-            Text("Just a description")
-  
+            VStack(spacing: 0) {
+                VStack {
+                    Text("Little Lemon")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(Font(Fonts.DisplayTitle))
+                        .foregroundStyle(Colors.Yellow)
+                    
+                    Text("Chicago")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(Font(Fonts.Subtitle))
+                        .foregroundStyle(.white)
+                        .offset(y: -20)
+                }
+                
+                HStack {
+                    Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(Font(Fonts.HighlightText))
+                        .foregroundStyle(.white)
+                    
+                    Image("hero-image")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 120, height: 120, alignment: .center)
+                        .clipped()
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        
+                }
+                .offset(y: -35)
+            }
+            .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
+            .background(Colors.DarkGreen)
             
-            TextField("Search Menu", text: $searchText)
-                .padding([.leading, .trailing], 20)
+            VStack {
+                Text("Order for Delivery!")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .textCase(.uppercase)
+                    .font(Font(Fonts.SectionTitle))
+                       
+                HStack {
+                    Group {
+                        Button("Starters") {}
+                        Button("Main") {}
+                        Button("Desserts") {}
+                        Button("Drinks") {}
+                    }
+                    .padding([.top, .bottom], 10)
+                    .padding([.leading, .trailing], 15)
+                    .font(Font(Fonts.SectionCategory))
+                    .foregroundColor(Colors.DarkGreen)
+                    .background(Colors.VeryLightGray)
+                    .cornerRadius(15)
+                }
+
+            }
+            .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
+            
+            
+            
+//            TextField("Search Menu", text: $searchText)
+//                    .padding([.leading, .trailing], 20)
+
             
 //            FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
 //                List{

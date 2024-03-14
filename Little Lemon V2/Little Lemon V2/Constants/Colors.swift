@@ -20,4 +20,5 @@ struct Colors {
     static let DarkGray: Color = Color("ColorDarkGray")
     static let Gray: Color = Color("ColorGray")
     static let LightGray: Color = Color("ColorLightGray")
+    static let VeryLightGray: Color = Color("ColorVeryLightGray")
 }
