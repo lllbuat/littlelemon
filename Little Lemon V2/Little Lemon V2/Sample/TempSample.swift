@@ -54,7 +54,48 @@ struct TempSample: View {
 //        .padding([.top, .bottom], 10)
 //        .padding([.leading, .trailing], 20)
     }
+    
+    func getData() async {
+//        var menuItems = [MenuItem]()
+        
+        let url = URL(string: "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json")!
+        let urlSession = URLSession.shared
+        
+        do {
+            let (data, resp) = try await urlSession.data(from: url)
+            print(data)
+//            let fullMenu = try JSONDecoder().decode(JSONMenu.self, from: data)
+//            menuItems = fullMenu.menu
+                        
+            // populate Core Data
+//            Dish.deleteAll(coreDataContext)
+//            Dish.createDishesFrom(menuItems:menuItems, coreDataContext)
+        } catch (let error){
+            print(error.localizedDescription)
+        }
+        
+    }
 }
+
+//struct JSONMenu: Codable {
+//    let menu: [MenuItem]
+//    
+//    enum CodingKeys: String, CodingKey {
+//        case menu = "menu"
+//    }
+//}
+
+//struct MenuItem: Decodable {
+//    let title: String
+//    let image: String
+//    let price: String
+//    
+//    let description: String
+//    let category: String
+//    let id: Int
+//}
+//
+
 
 #Preview {
     TempSample()

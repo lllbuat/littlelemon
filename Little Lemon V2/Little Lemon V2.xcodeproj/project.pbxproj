@@ -11,6 +11,7 @@
 		AE08C2DE2B9EE98B00AEA573 /* FontFamilySample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE08C2DD2B9EE98B00AEA573 /* FontFamilySample.swift */; };
 		AE08C2E02B9EEAA200AEA573 /* MarkaziText.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE08C2DA2B9EE64E00AEA573 /* MarkaziText.ttf */; };
 		AE08C2E12B9EEC0C00AEA573 /* Little-Lemon-V2-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE08C2DB2B9EE72F00AEA573 /* Little-Lemon-V2-Info.plist */; };
+		AE1388762BA3F18900480030 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1388752BA3F18900480030 /* MenuItemView.swift */; };
 		AE2EF8252B95975700663F18 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8242B95975700663F18 /* UserProfile.swift */; };
 		AE2EF8272B95A54700663F18 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8262B95A54700663F18 /* FetchedObjects.swift */; };
 		AE2EF8292B95A58600663F18 /* MenuListStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8282B95A58600663F18 /* MenuListStruct.swift */; };
@@ -39,6 +40,7 @@
 		AE08C2DA2B9EE64E00AEA573 /* MarkaziText.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MarkaziText.ttf; sourceTree = "<group>"; };
 		AE08C2DB2B9EE72F00AEA573 /* Little-Lemon-V2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Little-Lemon-V2-Info.plist"; sourceTree = SOURCE_ROOT; };
 		AE08C2DD2B9EE98B00AEA573 /* FontFamilySample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontFamilySample.swift; sourceTree = "<group>"; };
+		AE1388752BA3F18900480030 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		AE2EF8242B95975700663F18 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		AE2EF8262B95A54700663F18 /* FetchedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
 		AE2EF8282B95A58600663F18 /* MenuListStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListStruct.swift; sourceTree = "<group>"; };
@@ -84,6 +86,24 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		AE1388732BA3F17300480030 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				AE73222C2B91BE31005B665B /* Menu.swift */,
+				AE1388752BA3F18900480030 /* MenuItemView.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		AE1388772BA3F42500480030 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AE73221C2B91B925005B665B /* Persistence.swift */,
+				AE2EF8262B95A54700663F18 /* FetchedObjects.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		AE4EB2902B9FEBD800E83EF0 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +133,8 @@
 		AE7322122B91B923005B665B /* Little Lemon V2 */ = {
 			isa = PBXGroup;
 			children = (
+				AE1388772BA3F42500480030 /* CoreData */,
+				AE1388732BA3F17300480030 /* Menu */,
 				AEA8D2492BA1473800BDCBF7 /* Sample */,
 				AE4EB2902B9FEBD800E83EF0 /* Constants */,
 				AE08C2DB2B9EE72F00AEA573 /* Little-Lemon-V2-Info.plist */,
@@ -124,14 +146,11 @@
 				AE7322152B91B923005B665B /* ContentView.swift */,
 				AE7322282B91B9AB005B665B /* Onboarding.swift */,
 				AE2EF82C2B95A95400663F18 /* ExampleDatabase.xcdatamodeld */,
-				AE73222C2B91BE31005B665B /* Menu.swift */,
 				AE08C2D72B9EDA6F00AEA573 /* NavigationBar.swift */,
 				AE7322172B91B925005B665B /* Assets.xcassets */,
-				AE73221C2B91B925005B665B /* Persistence.swift */,
 				AE2EF8282B95A58600663F18 /* MenuListStruct.swift */,
 				AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */,
 				AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */,
-				AE2EF8262B95A54700663F18 /* FetchedObjects.swift */,
 				AE73221E2B91B925005B665B /* Little_Lemon_V2.xcdatamodeld */,
 				AE7322192B91B925005B665B /* Preview Content */,
 			);
@@ -256,6 +275,7 @@
 				AE73221D2B91B925005B665B /* Persistence.swift in Sources */,
 				AE7322162B91B923005B665B /* ContentView.swift in Sources */,
 				AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */,
+				AE1388762BA3F18900480030 /* MenuItemView.swift in Sources */,
 				AE4EB2942B9FF6AF00E83EF0 /* Colors.swift in Sources */,
 				AE08C2DE2B9EE98B00AEA573 /* FontFamilySample.swift in Sources */,
 				AE73222D2B91BE31005B665B /* Menu.swift in Sources */,
