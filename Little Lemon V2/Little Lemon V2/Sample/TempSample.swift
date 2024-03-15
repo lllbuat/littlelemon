@@ -9,92 +9,76 @@ import SwiftUI
 import PhotosUI
 
 struct TempSample: View {
+    @ObservedObject var dishesModel = DishesModel()
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @State private var test: String = ""
-//    
-//    @State private var avatarItem: PhotosPickerItem?
-//    @State private var avatarImage: Image?
-//    
-//    let myFont = Font(Fonts.DisplayTitle).leading(.tight)
+    //
+    //    @State private var avatarItem: PhotosPickerItem?
+    //    @State private var avatarImage: Image?
+    //
+    //    let myFont = Font(Fonts.DisplayTitle).leading(.tight)
     
     let meals = ["bread","milk","burger","fries","fish","veggies"]
     
     var body: some View {
-//        VStack {
-//            Button("Change") {
-//                // open photo library to select image
-//            }
-//            
-//            avatarImage?
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 300, height: 300)
-//        }
-
-        NavigationStack {
-            List {
-                ForEach(meals, id: \.self) { meal in
-                   Text(meal)
-                }
-//                .listRowSeparator(.hidden,
-//                                  edges: .all)
-            }
-//            .listStyle(.plain)
-            .navigationTitle("Find Your Next Meal")
-            .searchable(text: $test)
+        VStack {
+            Text("Hello")
             
+            NavigationView {
+                FetchedObjects() {
+                        (dishes: [Dish]) in
+                        let _ = print("FetchObjects \(dishes.count)")
+                        List {
+                            // Code for the list enumeration here
+                            ForEach(dishes, id: \.self) { dish in
+                                MenuItemView(dish)
+                            }
+                        }
+                    }
+            }
+        }
+        .task {
+            await dishesModel.reload(viewContext)
         }
         
-//        VStack {
-//            TextField(test, text: $test)
-//                .font(Font(Fonts.ParagraphText))
-//                .foregroundStyle(Colors.DarkGray)
-//                .padding(10)
-//                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGray, style: StrokeStyle(lineWidth: 0.5)))
-//        }
-//        .padding([.top, .bottom], 10)
-//        .padding([.leading, .trailing], 20)
-    }
-    
-    func getData() async {
-//        var menuItems = [MenuItem]()
+        //        VStack {
+        //            Button("Change") {
+        //                // open photo library to select image
+        //            }
+        //
+        //            avatarImage?
+        //                .resizable()
+        //                .scaledToFit()
+        //                .frame(width: 300, height: 300)
+        //        }
         
-        let url = URL(string: "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json")!
-        let urlSession = URLSession.shared
+        //        NavigationStack {
+        //            List {
+        //                ForEach(meals, id: \.self) { meal in
+        //                   Text(meal)
+        //                }
+        //                .listRowSeparator(.hidden,
+        //                                  edges: .all)
+        //            }
+        //            .listStyle(.plain)
+        //            .navigationTitle("Find Your Next Meal")
+        //            .searchable(text: $test)
+        //
         
-        do {
-            let (data, resp) = try await urlSession.data(from: url)
-            print(data)
-//            let fullMenu = try JSONDecoder().decode(JSONMenu.self, from: data)
-//            menuItems = fullMenu.menu
-                        
-            // populate Core Data
-//            Dish.deleteAll(coreDataContext)
-//            Dish.createDishesFrom(menuItems:menuItems, coreDataContext)
-        } catch (let error){
-            print(error.localizedDescription)
-        }
-        
+        //        VStack {
+        //            TextField(test, text: $test)
+        //                .font(Font(Fonts.ParagraphText))
+        //                .foregroundStyle(Colors.DarkGray)
+        //                .padding(10)
+        //                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGray, style: StrokeStyle(lineWidth: 0.5)))
+        //        }
+        //        .padding([.top, .bottom], 10)
+        //        .padding([.leading, .trailing], 20)
     }
 }
-
-//struct JSONMenu: Codable {
-//    let menu: [MenuItem]
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case menu = "menu"
-//    }
-//}
-
-//struct MenuItem: Decodable {
-//    let title: String
-//    let image: String
-//    let price: String
-//    
-//    let description: String
-//    let category: String
-//    let id: Int
-//}
-//
+    
 
 
 #Preview {

@@ -16,7 +16,6 @@
 		AE2EF8272B95A54700663F18 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8262B95A54700663F18 /* FetchedObjects.swift */; };
 		AE2EF8292B95A58600663F18 /* MenuListStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8282B95A58600663F18 /* MenuListStruct.swift */; };
 		AE2EF82B2B95A58E00663F18 /* MenuItemStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */; };
-		AE2EF82E2B95A95400663F18 /* ExampleDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF82C2B95A95400663F18 /* ExampleDatabase.xcdatamodeld */; };
 		AE4EB28E2B9FEAF500E83EF0 /* Karla.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE4EB28C2B9FEAF500E83EF0 /* Karla.ttf */; };
 		AE4EB28F2B9FEAF500E83EF0 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE4EB28D2B9FEAF500E83EF0 /* Karla-Italic.ttf */; };
 		AE4EB2922B9FEBE300E83EF0 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4EB2912B9FEBE300E83EF0 /* Fonts.swift */; };
@@ -31,6 +30,9 @@
 		AE7322292B91B9AB005B665B /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7322282B91B9AB005B665B /* Onboarding.swift */; };
 		AE73222B2B91BE0D005B665B /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE73222A2B91BE0D005B665B /* Home.swift */; };
 		AE73222D2B91BE31005B665B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE73222C2B91BE31005B665B /* Menu.swift */; };
+		AE80BA502BA4F18B004CD953 /* DishModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE80BA4F2BA4F18B004CD953 /* DishModel.swift */; };
+		AE80BA532BA4F5D8004CD953 /* Dish+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE80BA512BA4F5D8004CD953 /* Dish+CoreDataClass.swift */; };
+		AE80BA542BA4F5D8004CD953 /* Dish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE80BA522BA4F5D8004CD953 /* Dish+CoreDataProperties.swift */; };
 		AEA622BD2B95B5FB004BFC8E /* DishExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */; };
 		AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */; };
 /* End PBXBuildFile section */
@@ -45,7 +47,6 @@
 		AE2EF8262B95A54700663F18 /* FetchedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
 		AE2EF8282B95A58600663F18 /* MenuListStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListStruct.swift; sourceTree = "<group>"; };
 		AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemStruct.swift; sourceTree = "<group>"; };
-		AE2EF82D2B95A95400663F18 /* ExampleDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExampleDatabase.xcdatamodel; sourceTree = "<group>"; };
 		AE4EB28C2B9FEAF500E83EF0 /* Karla.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Karla.ttf; sourceTree = "<group>"; };
 		AE4EB28D2B9FEAF500E83EF0 /* Karla-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Italic.ttf"; sourceTree = "<group>"; };
 		AE4EB2912B9FEBE300E83EF0 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -61,6 +62,9 @@
 		AE7322282B91B9AB005B665B /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		AE73222A2B91BE0D005B665B /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		AE73222C2B91BE31005B665B /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		AE80BA4F2BA4F18B004CD953 /* DishModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishModel.swift; sourceTree = "<group>"; };
+		AE80BA512BA4F5D8004CD953 /* Dish+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AE80BA522BA4F5D8004CD953 /* Dish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishExtension.swift; sourceTree = "<group>"; };
 		AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempSample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,8 +102,13 @@
 		AE1388772BA3F42500480030 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				AE80BA512BA4F5D8004CD953 /* Dish+CoreDataClass.swift */,
+				AE80BA522BA4F5D8004CD953 /* Dish+CoreDataProperties.swift */,
+				AE73221E2B91B925005B665B /* Little_Lemon_V2.xcdatamodeld */,
 				AE73221C2B91B925005B665B /* Persistence.swift */,
 				AE2EF8262B95A54700663F18 /* FetchedObjects.swift */,
+				AE80BA4F2BA4F18B004CD953 /* DishModel.swift */,
+				AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -145,13 +154,10 @@
 				AE7322132B91B923005B665B /* Little_Lemon_V2App.swift */,
 				AE7322152B91B923005B665B /* ContentView.swift */,
 				AE7322282B91B9AB005B665B /* Onboarding.swift */,
-				AE2EF82C2B95A95400663F18 /* ExampleDatabase.xcdatamodeld */,
 				AE08C2D72B9EDA6F00AEA573 /* NavigationBar.swift */,
 				AE7322172B91B925005B665B /* Assets.xcassets */,
 				AE2EF8282B95A58600663F18 /* MenuListStruct.swift */,
-				AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */,
 				AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */,
-				AE73221E2B91B925005B665B /* Little_Lemon_V2.xcdatamodeld */,
 				AE7322192B91B925005B665B /* Preview Content */,
 			);
 			path = "Little Lemon V2";
@@ -275,17 +281,19 @@
 				AE73221D2B91B925005B665B /* Persistence.swift in Sources */,
 				AE7322162B91B923005B665B /* ContentView.swift in Sources */,
 				AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */,
+				AE80BA502BA4F18B004CD953 /* DishModel.swift in Sources */,
 				AE1388762BA3F18900480030 /* MenuItemView.swift in Sources */,
 				AE4EB2942B9FF6AF00E83EF0 /* Colors.swift in Sources */,
+				AE80BA532BA4F5D8004CD953 /* Dish+CoreDataClass.swift in Sources */,
 				AE08C2DE2B9EE98B00AEA573 /* FontFamilySample.swift in Sources */,
 				AE73222D2B91BE31005B665B /* Menu.swift in Sources */,
 				AE7322292B91B9AB005B665B /* Onboarding.swift in Sources */,
 				AE2EF8252B95975700663F18 /* UserProfile.swift in Sources */,
 				AE7322142B91B923005B665B /* Little_Lemon_V2App.swift in Sources */,
+				AE80BA542BA4F5D8004CD953 /* Dish+CoreDataProperties.swift in Sources */,
 				AE73222B2B91BE0D005B665B /* Home.swift in Sources */,
 				AE7322202B91B925005B665B /* Little_Lemon_V2.xcdatamodeld in Sources */,
 				AE2EF82B2B95A58E00663F18 /* MenuItemStruct.swift in Sources */,
-				AE2EF82E2B95A95400663F18 /* ExampleDatabase.xcdatamodeld in Sources */,
 				AEA622BD2B95B5FB004BFC8E /* DishExtension.swift in Sources */,
 				AE4EB2962B9FF95200E83EF0 /* UserDefaults.swift in Sources */,
 				AE08C2D82B9EDA6F00AEA573 /* NavigationBar.swift in Sources */,
@@ -500,16 +508,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AE2EF82C2B95A95400663F18 /* ExampleDatabase.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				AE2EF82D2B95A95400663F18 /* ExampleDatabase.xcdatamodel */,
-			);
-			currentVersion = AE2EF82D2B95A95400663F18 /* ExampleDatabase.xcdatamodel */;
-			path = ExampleDatabase.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		AE73221E2B91B925005B665B /* Little_Lemon_V2.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct Menu: View {
-    @Environment(\.managedObjectContext) private var context
+    @ObservedObject var dishesModel = DishesModel()
+    
+    @Environment(\.managedObjectContext) private var viewContext
     
     @State var searchText = ""
     
@@ -71,62 +73,25 @@ struct Menu: View {
             }
             .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
             
-            
-            
-//            TextField("Search Menu", text: $searchText)
-//                    .padding([.leading, .trailing], 20)
-
-            
-//            FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
-//                List{
-//                    
-//                    ForEach(dishes, id: \.self) { dish in
-//                        HStack {
-//                            let text = (dish.title ?? "") + " $" + (dish.price ?? "")
-//                            Text(text)
-//                                .padding([.top, .bottom], 7)
-//                            
-//                            Spacer()
-//                            
-//                            AsyncImage(url: URL(string: dish.image!)) { image in
-//                                image.resizable()
-//                            } placeholder: {
-//                                ProgressView()
-//                            }
-//                            .frame(width: 80, height: 80)
-//                        }
-//                    }
-//                }
-//            }
-
-        }
-        .onAppear {
-//            getMenuData()
-        }
-    }
-    
-    func getMenuData() {
-        print("getMenuData 1 ", Dish.countRecords(context))
-        print("getMenuData 2 ", Dish.countRecords(context))
-        
-        let urlStr = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json"
-        let url = URL(string: urlStr)!
-        let urlRequest = URLRequest(url: url)
-        let urlSession = URLSession.shared
-        
-        do {
-            let dataSessionTask = urlSession.dataTask(with: urlRequest) {data,response,error in
-                if let data = data {
-                    if let fullMenu = try? JSONDecoder().decode(MenuList.self, from: data) {
-                        
-                        // populate Core Data
-                        Dish.createDishesFrom(menuItems:fullMenu.menu, context)
-                        print("getMenuData 3 ", Dish.countRecords(context))
+            NavigationView {
+                FetchedObjects(predicate:buildPredicate(),
+                               sortDescriptors: buildSortDescriptors()) {
+                        (dishes: [Dish]) in
+                        let _ = print("FetchObjects \(dishes.count)")
+                        List {
+                            // Code for the list enumeration here
+                            ForEach(dishes, id: \.self) { dish in
+                                MenuItemView(dish)
+                            }
+                        }
+//                        .searchable(text: $searchText,
+//                                    prompt: "Search...")
                     }
-                }
             }
-            dataSessionTask.resume()
-        }   catch {}
+        }
+        .task {
+            await dishesModel.reload(viewContext)
+        }
     }
     
     func buildPredicate() -> NSPredicate {
@@ -142,6 +107,6 @@ struct Menu: View {
     
 }
 
-#Preview {
-    Menu()
-}
+//#Preview {
+//    Menu()
+//}

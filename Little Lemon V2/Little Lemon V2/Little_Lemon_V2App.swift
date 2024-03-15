@@ -9,15 +9,18 @@ import SwiftUI
 
 @main
 struct Little_Lemon_V2App: App {
-//    let persistenceController = PersistenceController.shared
+    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-            TempSample()
+//            TempSample()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
 //            FontFamilySample()
 //            UserProfile()
-//            Menu()
+            Menu()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            
 //            Onboarding()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
