@@ -14,7 +14,7 @@ public class Dish: NSManagedObject {
     
     func getPrice() -> String {
         let newPrice = price ?? "0"
-        return "$ " + newPrice
+        return "$" + newPrice
     }
     
 }

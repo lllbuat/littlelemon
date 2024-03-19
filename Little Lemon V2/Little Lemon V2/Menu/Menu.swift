@@ -13,38 +13,46 @@ struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @State var searchText = ""
+    @State var selectedCategory = ""
     
     var body: some View {
-        VStack{
+        VStack {
             VStack(spacing: 0) {
                 VStack {
                     Text("Little Lemon")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(Font(Fonts.DisplayTitle))
                         .foregroundStyle(Colors.Yellow)
+//                        .background(Color.gray)
                     
                     Text("Chicago")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(Font(Fonts.Subtitle))
                         .foregroundStyle(.white)
+//                        .background(Color.colorLightGray)
                         .offset(y: -20)
                 }
                 
                 HStack {
                     Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                         .font(Font(Fonts.HighlightText))
                         .foregroundStyle(.white)
                     
                     Image("hero-image")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 120, height: 120, alignment: .center)
+                        .frame(width: 120, height: 150, alignment: .center)
                         .clipped()
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         
                 }
-                .offset(y: -35)
+//                .background(Color.green)
+                .offset(y: -20)
+                
+                SearchBar(fontToUse: Fonts.CardTitle, searchText: $searchText)
+                    .padding([.top], 10)
+                    .offset(y: -20)
             }
             .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
             .background(Colors.DarkGreen)
@@ -57,7 +65,8 @@ struct Menu: View {
                        
                 HStack {
                     Group {
-                        Button("Starters") {}
+                        Button("All") { selectedCategory = "" }
+                        Button("Starters") { selectedCategory = "starters" }
                         Button("Main") {}
                         Button("Desserts") {}
                         Button("Drinks") {}
@@ -69,25 +78,30 @@ struct Menu: View {
                     .background(Colors.VeryLightGray)
                     .cornerRadius(15)
                 }
+                
+                Divider()
 
             }
             .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
-            
-            NavigationView {
-                FetchedObjects(predicate:buildPredicate(),
-                               sortDescriptors: buildSortDescriptors()) {
+                              
+            VStack {
+                NavigationView {
+                    FetchedObjects(predicate:buildPredicate(),
+                                   sortDescriptors: buildSortDescriptors()) {
                         (dishes: [Dish]) in
-                        let _ = print("FetchObjects \(dishes.count)")
+//                        let _ = print("FetchObjects \(dishes.count)")
                         List {
                             // Code for the list enumeration here
                             ForEach(dishes, id: \.self) { dish in
                                 MenuItemView(dish)
                             }
                         }
-//                        .searchable(text: $searchText,
-//                                    prompt: "Search...")
+                        .listStyle(.plain)
+//                        .searchable(text: $searchText)
                     }
+                }
             }
+            .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
         }
         .task {
             await dishesModel.reload(viewContext)
@@ -95,7 +109,15 @@ struct Menu: View {
     }
     
     func buildPredicate() -> NSPredicate {
-        return searchText == "" ? NSPredicate(value: true) :  NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        if (searchText == "") && (selectedCategory == "") {
+            return NSPredicate(value: true)
+        } else if (searchText == "")  {
+            return NSPredicate(format: "category == %@", selectedCategory)
+        } else if (selectedCategory == "") {
+            return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        } else {
+            return NSPredicate(format: "(title CONTAINS[cd] %@) && (category == %@)", searchText, selectedCategory)
+        }
     }
     
     func buildSortDescriptors() -> [NSSortDescriptor] {

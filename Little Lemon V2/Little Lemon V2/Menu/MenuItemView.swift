@@ -15,34 +15,44 @@ struct MenuItemView: View {
     }
     
     var body: some View {
-        HStack(alignment: .bottom) {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(self.dish.title ?? "")
-                    .font(Font(Fonts.CardTitle))
-                    .foregroundStyle(Colors.DarkGray)
-                    .padding([.top, .bottom], 7)
+        VStack {
+            HStack(alignment: .bottom) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(self.dish.title ?? "")
+                        .font(Font(Fonts.CardTitle))
+                        .foregroundStyle(Colors.DarkGray)
+                        .padding([.top, .bottom], 7)
+                    
+                    Text(self.dish.dishDescription ?? "")
+                        .font(Font(Fonts.ParagraphText))
+                        .foregroundStyle(Colors.DarkGreen)
+                    
+                    Text(self.dish.getPrice())
+                        .font(Font(Fonts.HighlightText))
+                        .foregroundStyle(Colors.DarkGreen)
+                } // vstack
+//                .background(Color.red)
                 
-                Text(self.dish.dishDescription ?? "")
-                    .font(Font(Fonts.ParagraphText))
-                    .foregroundStyle(Colors.DarkGreen)
+                Spacer()
                 
-                Text(self.dish.getPrice())
-                    .font(Font(Fonts.HighlightText))
-                    .foregroundStyle(Colors.DarkGreen)
-            }
+                AsyncImage(url: URL(string: self.dish.image ?? "")) { image in
+                    image.resizable()
+                } placeholder: {
+                    ProgressView()
+                } //  asyncimage
+//                .background(Color.pink)
+                .frame(width: 80, height: 80)
+                .aspectRatio(contentMode: .fit)
+                
+            } // hstack
+            //        .background(Color.blue)
             
-            Spacer()
-            
-            AsyncImage(url: URL(string: self.dish.image ?? "")) { image in
-                image.resizable()
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(width: 80, height: 80)
-            .aspectRatio(contentMode: .fit)
+            Divider()
         }
-//        .contentShape(Rectangle())
-    }
+        .listRowInsets(EdgeInsets())
+        .listRowSeparator(.hidden)
+        // .contentShape(Rectangle())
+    } // view
 }
 
 //#Preview {

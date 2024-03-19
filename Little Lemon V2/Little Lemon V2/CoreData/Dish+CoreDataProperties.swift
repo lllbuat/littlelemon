@@ -35,7 +35,7 @@ extension Dish : Identifiable {
             let dishExist = exist(title: item.title, context) ?? false
 
             if !dishExist {
-                print("\(item.title) no dish")
+//                print("\(item.title) no dish")
                 let dish = Dish(context: context)
                 dish.title = item.title
                 dish.price = item.price
@@ -48,7 +48,7 @@ extension Dish : Identifiable {
 
         guard context.hasChanges else { return }
         Dish.save(context)
-        print("End createDishesFrom")
+//        print("End createDishesFrom")
     }
     
     static func exist(title: String, _ context: NSManagedObjectContext) -> Bool? {
