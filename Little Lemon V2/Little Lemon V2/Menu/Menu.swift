@@ -63,20 +63,28 @@ struct Menu: View {
                     .textCase(.uppercase)
                     .font(Font(Fonts.SectionTitle))
                        
-                HStack {
-                    Group {
-                        Button("All") { selectedCategory = "" }
-                        Button("Starters") { selectedCategory = "starters" }
-                        Button("Main") {}
-                        Button("Desserts") {}
-                        Button("Drinks") {}
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        Button("Starters") {
+                            toggleSelectedCategory("starters")
+                        }
+                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "starters")))
+                        
+                        Button("Mains") {
+                            toggleSelectedCategory("mains")
+                        }
+                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "mains")))
+                        
+                        Button("Desserts") {
+                            toggleSelectedCategory("desserts")
+                        }
+                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "desserts")))
+                        
+                        Button("Drinks") {
+                            toggleSelectedCategory("drinks")
+                        }
+                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "drinks")))
                     }
-                    .padding([.top, .bottom], 10)
-                    .padding([.leading, .trailing], 15)
-                    .font(Font(Fonts.SectionCategory))
-                    .foregroundColor(Colors.DarkGreen)
-                    .background(Colors.VeryLightGray)
-                    .cornerRadius(15)
                 }
                 
                 Divider()
@@ -89,7 +97,6 @@ struct Menu: View {
                     FetchedObjects(predicate:buildPredicate(),
                                    sortDescriptors: buildSortDescriptors()) {
                         (dishes: [Dish]) in
-//                        let _ = print("FetchObjects \(dishes.count)")
                         List {
                             // Code for the list enumeration here
                             ForEach(dishes, id: \.self) { dish in
@@ -97,18 +104,17 @@ struct Menu: View {
                             }
                         }
                         .listStyle(.plain)
-//                        .searchable(text: $searchText)
                     }
                 }
             }
             .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
         }
-        .task {
-            await dishesModel.reload(viewContext)
-        }
+//        .task {
+//            await dishesModel.reload(viewContext)
+//        }
     }
     
-    func buildPredicate() -> NSPredicate {
+    private func buildPredicate() -> NSPredicate {
         if (searchText == "") && (selectedCategory == "") {
             return NSPredicate(value: true)
         } else if (searchText == "")  {
@@ -120,15 +126,30 @@ struct Menu: View {
         }
     }
     
-    func buildSortDescriptors() -> [NSSortDescriptor] {
+    private func buildSortDescriptors() -> [NSSortDescriptor] {
         return [NSSortDescriptor(key: "title",
                                  ascending: true,
                                  selector: #selector(NSString .localizedStandardCompare))]
     }
     
+    private func toggleSelectedCategory(_ category: String) {
+        let ls_category = ["starters", "mains", "desserts","drinks"]
+        if self.selectedCategory == category {
+            // deselect
+            self.selectedCategory = ""
+        } else if ls_category.contains(category) {
+            self.selectedCategory = category
+        } else {
+            self.selectedCategory = ""
+        }
+        print("current selected category: ", self.selectedCategory)
+    }
+    
     
 }
 
-//#Preview {
-//    Menu()
-//}
+
+
+#Preview {
+    Menu()
+}

@@ -92,6 +92,13 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		AE0C24192BAA7B7A007E957A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		AE1388732BA3F17300480030 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +152,7 @@
 		AE7322122B91B923005B665B /* Little Lemon V2 */ = {
 			isa = PBXGroup;
 			children = (
+				AE0C24192BAA7B7A007E957A /* Components */,
 				AE1388772BA3F42500480030 /* CoreData */,
 				AE1388732BA3F17300480030 /* Menu */,
 				AEA8D2492BA1473800BDCBF7 /* Sample */,
