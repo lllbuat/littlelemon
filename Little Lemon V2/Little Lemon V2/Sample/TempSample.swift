@@ -9,22 +9,27 @@ import SwiftUI
 import PhotosUI
 
 struct TempSample: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @State private var test: String = ""
-    @State private var selectedCategory: String = ""
+    @State private var firstName = "Alice"
+    @State private var lastName = "Bob"
+    @State private var email = "hello@world.com"
+    @State private var phoneNumber = "123-456-7890"
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                MenuCategoryButton(selectedCategory: $selectedCategory,
-                             category: "Starters")
-                MenuCategoryButton(selectedCategory: $selectedCategory,
-                             category: "Mains")
-                MenuCategoryButton(selectedCategory: $selectedCategory,
-                             category: "Desserts")
-                MenuCategoryButton(selectedCategory: $selectedCategory,
-                             category: "Drinks")
+        VStack {
+            HeroSectionView()
+                .frame(height: 300)
+            
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack {
+                    NamedTextField(text: $firstName, title: "First Name")
+                    NamedTextField(text: $lastName, title: "Last Name")
+                    NamedTextField(text: $email, title: "Email")
+                    NamedTextField(text: $phoneNumber, title: "Phone Number")
+                }
+                .padding([.leading, .trailing], 10)
+                .padding([.top, .bottom], 5)
+                
+                Spacer()
             }
         }
     }
