@@ -36,6 +36,7 @@
 		AE80BA542BA4F5D8004CD953 /* Dish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE80BA522BA4F5D8004CD953 /* Dish+CoreDataProperties.swift */; };
 		AEA622BD2B95B5FB004BFC8E /* DishExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */; };
 		AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */; };
+		AEFAB6552BABD16200653750 /* MenuCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		AE80BA522BA4F5D8004CD953 /* Dish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AEA622BC2B95B5FB004BFC8E /* DishExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishExtension.swift; sourceTree = "<group>"; };
 		AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempSample.swift; sourceTree = "<group>"; };
+		AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategoryButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		AE0C24192BAA7B7A007E957A /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				AE80BA532BA4F5D8004CD953 /* Dish+CoreDataClass.swift in Sources */,
 				AE08C2DE2B9EE98B00AEA573 /* FontFamilySample.swift in Sources */,
 				AE73222D2B91BE31005B665B /* Menu.swift in Sources */,
+				AEFAB6552BABD16200653750 /* MenuCategoryButton.swift in Sources */,
 				AE7322292B91B9AB005B665B /* Onboarding.swift in Sources */,
 				AE2EF8252B95975700663F18 /* UserProfile.swift in Sources */,
 				AE7322142B91B923005B665B /* Little_Lemon_V2App.swift in Sources */,

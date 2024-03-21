@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Menu: View {
+    private var ls_menuCategories = ["Starters", "Mains", "Desserts", "Drinks"]
+    
+    
     @ObservedObject var dishesModel = DishesModel()
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -65,25 +68,10 @@ struct Menu: View {
                        
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        Button("Starters") {
-                            toggleSelectedCategory("starters")
+                        ForEach(ls_menuCategories, id: \.self) { cat in
+                            MenuCategoryButton(selectedCategory: $selectedCategory,
+                                               category: cat)
                         }
-                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "starters")))
-                        
-                        Button("Mains") {
-                            toggleSelectedCategory("mains")
-                        }
-                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "mains")))
-                        
-                        Button("Desserts") {
-                            toggleSelectedCategory("desserts")
-                        }
-                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "desserts")))
-                        
-                        Button("Drinks") {
-                            toggleSelectedCategory("drinks")
-                        }
-                        .buttonStyle(MenuCategoryButtonStyle(isActive: (self.selectedCategory == "drinks")))
                     }
                 }
                 
@@ -97,32 +85,40 @@ struct Menu: View {
                     FetchedObjects(predicate:buildPredicate(),
                                    sortDescriptors: buildSortDescriptors()) {
                         (dishes: [Dish]) in
-                        List {
-                            // Code for the list enumeration here
-                            ForEach(dishes, id: \.self) { dish in
-                                MenuItemView(dish)
+                        if dishes.count == 0 {
+                            Text("None matches criteria")
+                                .font(Font(Fonts.HighlightText))
+                                .foregroundStyle(Colors.DarkGray)
+                        } else {
+                            List {
+                                // Code for the list enumeration here
+                                ForEach(dishes, id: \.self) { dish in
+                                    MenuItemView(dish)
+                                }
                             }
+                            .listStyle(.plain)
                         }
-                        .listStyle(.plain)
+                        
+
                     }
                 }
             }
             .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
         }
-//        .task {
-//            await dishesModel.reload(viewContext)
-//        }
+        .task {
+            await dishesModel.reload(viewContext)
+        }
     }
     
     private func buildPredicate() -> NSPredicate {
-        if (searchText == "") && (selectedCategory == "") {
+        if (self.searchText == "") && (self.selectedCategory == "") {
             return NSPredicate(value: true)
-        } else if (searchText == "")  {
-            return NSPredicate(format: "category == %@", selectedCategory)
-        } else if (selectedCategory == "") {
-            return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
+        } else if (self.searchText == "")  {
+            return NSPredicate(format: "category == %@", self.selectedCategory)
+        } else if (self.selectedCategory == "") {
+            return NSPredicate(format: "title CONTAINS[cd] %@", self.searchText)
         } else {
-            return NSPredicate(format: "(title CONTAINS[cd] %@) && (category == %@)", searchText, selectedCategory)
+            return NSPredicate(format: "(title CONTAINS[cd] %@) && (category == %@)", self.searchText, self.selectedCategory)
         }
     }
     
@@ -131,25 +127,11 @@ struct Menu: View {
                                  ascending: true,
                                  selector: #selector(NSString .localizedStandardCompare))]
     }
-    
-    private func toggleSelectedCategory(_ category: String) {
-        let ls_category = ["starters", "mains", "desserts","drinks"]
-        if self.selectedCategory == category {
-            // deselect
-            self.selectedCategory = ""
-        } else if ls_category.contains(category) {
-            self.selectedCategory = category
-        } else {
-            self.selectedCategory = ""
-        }
-        print("current selected category: ", self.selectedCategory)
-    }
-    
-    
+
 }
 
 
 
-#Preview {
-    Menu()
-}
+//#Preview {
+//    Menu()
+//}
