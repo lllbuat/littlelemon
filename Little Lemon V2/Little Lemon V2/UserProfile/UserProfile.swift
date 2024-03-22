@@ -129,6 +129,7 @@ struct UserProfile: View {
             .font(Font(Fonts.ParagraphText))
             
             Button("Log out") {
+                print("log out")
                 UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
                 self.presentation.wrappedValue.dismiss()
             }

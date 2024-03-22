@@ -8,40 +8,56 @@
 import SwiftUI
 
 struct LoginView: View {
+    @State private var isLoggedIn = false
+//    @State private var goToP2 = false
+    
+    @State private var firstName = "Alice"
+    @State private var lastName = "Bob"
+    @State private var email = "hello@world.com"
+    @State private var phoneNumber = "123-456-7890"
     
     var body: some View {
-        VStack {
-            HeroSectionView()
-                .frame(height: 300)
-            
-            VStack(spacing: 15) {
-                Button("Log in") {
-                    
-                }
-                .padding([.top, .bottom], 10)
-                .padding([.leading, .trailing], 15)
-                .frame(maxWidth: .infinity)
-                .font(Font(Fonts.LeadText))
-                .foregroundColor(Colors.DarkGray)
-                .background(.white)
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
+        
+        NavigationStack{
+            VStack {
+                HeroSectionView()
+                    .frame(height: 300)
                 
-                Button("Sign up") {
+                VStack(spacing: 15) {
                     
+                    Text("Register!")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .textCase(.uppercase)
+                        .font(Font(Fonts.SectionTitle))
+                    
+                    NamedTextField(text: $firstName, title: "First Name")
+                    NamedTextField(text: $lastName, title: "Last Name")
+                    NamedTextField(text: $email, title: "Email")
+                    NamedTextField(text: $phoneNumber, title: "Phone Number")
+
+                    Spacer()
+                    
+                    Button {
+                        self.isLoggedIn = true
+                    } label: {
+                        Text("Next")
+                            .frame(maxWidth: .infinity)
+                    }.buttonStyle(LightButton())
                 }
-                .padding([.top, .bottom], 10)
-                .padding([.leading, .trailing], 15)
-                .frame(maxWidth: .infinity)
-                .font(Font(Fonts.LeadText))
-                .foregroundColor(Colors.DarkGray)
-                .background(.white)
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                
+                
             }
-            .frame(height: 300)
-            .padding([.leading, .trailing], 50)
-            .padding([.top, .bottom], 5)
-            
-            Spacer()
+            .navigationDestination(isPresented: $isLoggedIn) {
+               OnboardingPreferences()
+            }
+            .onAppear {
+                self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
+//                self.firstName = ""
+//                self.lastName = ""
+//                self.email = ""
+            }
         }
     }
 }

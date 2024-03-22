@@ -13,13 +13,16 @@ struct Little_Lemon_V2App: App {
 
     var body: some Scene {
         WindowGroup {
+            LoginView()
+//            TempSample()
+            
 //            TempSample()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
 //            FontFamilySample()
 //            UserProfile()
-            Menu()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            Menu()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
 //            Onboarding()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
