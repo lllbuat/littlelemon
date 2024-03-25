@@ -13,7 +13,9 @@ struct Little_Lemon_V2App: App {
 
     var body: some Scene {
         WindowGroup {
-            LoginView()
+//            Home()
+//            OnboardingProfile()
+            OnboardingReview()
 //            TempSample()
             
 //            TempSample()

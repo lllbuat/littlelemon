@@ -43,7 +43,7 @@ struct HeroSectionView: View {
             .offset(y: -20)
             
         } //  hero section
-        .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
+        .padding(10)
         .background(Colors.DarkGreen)
     }
 }

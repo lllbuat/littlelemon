@@ -19,94 +19,103 @@ struct Menu: View {
     @State var selectedCategory = ""
     
     var body: some View {
-        VStack {
-            VStack(spacing: 0) {
-                VStack {
-                    Text("Little Lemon")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(Font(Fonts.DisplayTitle))
-                        .foregroundStyle(Colors.Yellow)
-//                        .background(Color.gray)
+        NavigationStack {
+            VStack {
+                VStack(spacing: 0) {
+                    VStack {
+                        Text("Little Lemon")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(Font(Fonts.DisplayTitle))
+                            .foregroundStyle(Colors.Yellow)
+                        //                        .background(Color.gray)
+                        
+                        Text("Chicago")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(Font(Fonts.Subtitle))
+                            .foregroundStyle(.white)
+                        //                        .background(Color.colorLightGray)
+                            .offset(y: -20)
+                    }
                     
-                    Text("Chicago")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(Font(Fonts.Subtitle))
-                        .foregroundStyle(.white)
-//                        .background(Color.colorLightGray)
+                    HStack {
+                        Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                            .font(Font(Fonts.HighlightText))
+                            .foregroundStyle(.white)
+                        
+                        Image("hero-image")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 120, height: 150, alignment: .center)
+                            .clipped()
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                        
+                    }
+                    //                .background(Color.green)
+                    .offset(y: -20)
+                    
+                    SearchBar(fontToUse: Fonts.CardTitle, searchText: $searchText)
+                        .padding([.top], 10)
                         .offset(y: -20)
                 }
+                .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
+                .background(Colors.DarkGreen)
                 
-                HStack {
-                    Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                        .font(Font(Fonts.HighlightText))
-                        .foregroundStyle(.white)
+                VStack {
+                    Text("Order for Delivery!")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .textCase(.uppercase)
+                        .font(Font(Fonts.SectionTitle))
                     
-                    Image("hero-image")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 120, height: 150, alignment: .center)
-                        .clipped()
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        
-                }
-//                .background(Color.green)
-                .offset(y: -20)
-                
-                SearchBar(fontToUse: Fonts.CardTitle, searchText: $searchText)
-                    .padding([.top], 10)
-                    .offset(y: -20)
-            }
-            .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
-            .background(Colors.DarkGreen)
-            
-            VStack {
-                Text("Order for Delivery!")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .textCase(.uppercase)
-                    .font(Font(Fonts.SectionTitle))
-                       
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(ls_menuCategories, id: \.self) { cat in
-                            MenuCategoryButton(selectedCategory: $selectedCategory,
-                                               category: cat)
-                        }
-                    }
-                }
-                
-                Divider()
-
-            }
-            .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
-                              
-            VStack {
-                NavigationView {
-                    FetchedObjects(predicate:buildPredicate(),
-                                   sortDescriptors: buildSortDescriptors()) {
-                        (dishes: [Dish]) in
-                        if dishes.count == 0 {
-                            Text("None matches criteria")
-                                .font(Font(Fonts.HighlightText))
-                                .foregroundStyle(Colors.DarkGray)
-                        } else {
-                            List {
-                                // Code for the list enumeration here
-                                ForEach(dishes, id: \.self) { dish in
-                                    MenuItemView(dish)
-                                }
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(ls_menuCategories, id: \.self) { cat in
+                                MenuCategoryButton(selectedCategory: $selectedCategory,
+                                                   category: cat)
                             }
-                            .listStyle(.plain)
                         }
-                        
-
+                    }
+                    
+                    Divider()
+                    
+                }
+                .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
+                
+                VStack {
+                    NavigationView {
+                        FetchedObjects(predicate:buildPredicate(),
+                                       sortDescriptors: buildSortDescriptors()) {
+                            (dishes: [Dish]) in
+                            if dishes.count == 0 {
+                                Text("None matches criteria")
+                                    .font(Font(Fonts.HighlightText))
+                                    .foregroundStyle(Colors.DarkGray)
+                            } else {
+                                List {
+                                    // Code for the list enumeration here
+                                    ForEach(dishes, id: \.self) { dish in
+                                        MenuItemView(dish)
+                                    }
+                                }
+                                .listStyle(.plain)
+                            }
+                            
+                            
+                        }
                     }
                 }
+                .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
             }
-            .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
-        }
-        .task {
-            await dishesModel.reload(viewContext)
+            .task {
+                await dishesModel.reload(viewContext)
+            }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                NavBarToolBarContent()
+            }
+            .toolbarBackground(.white, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
     

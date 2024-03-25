@@ -29,160 +29,140 @@ struct UserProfile: View {
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
-        VStack {
-            Text("Personal Information")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(Fonts.CardTitle))
-                .foregroundStyle(Colors.DarkGray)
-                .background(.white)
-            
-            Text("Avatar")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(Fonts.HighlightText))
-                .foregroundStyle(Colors.Gray)
-            
-            HStack {
-                avatarImage
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 75, height: 75)
+        NavigationStack {
+            VStack {
+                Text("Personal Information")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(Font(Fonts.CardTitle))
+                    .foregroundStyle(Colors.DarkGray)
+                    .background(.white)
                 
-                Button("Change") { 
-                    // open photo library to select image
-                }
+                Text("Avatar")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(Font(Fonts.HighlightText))
+                    .foregroundStyle(Colors.Gray)
+                
+                HStack {
+                    avatarImage
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 75, height: 75)
+                    
+                    Button("Change") {
+                        // open photo library to select image
+                    }
                     .padding([.top, .bottom], 10)
                     .padding([.leading, .trailing], 15)
                     .font(Font(Fonts.LeadText))
                     .foregroundColor(.white)
                     .background(Colors.DarkGreen)
                     .cornerRadius(10)
-                
-                Button("Remove") { 
-                    // remove image from app
-                }
+                    
+                    Button("Remove") {
+                        // remove image from app
+                    }
                     .padding([.top, .bottom], 10)
                     .padding([.leading, .trailing], 15)
                     .font(Font(Fonts.LeadText))
                     .foregroundColor(Colors.DarkGray)
                     .background(.white)
                     .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
+                    Spacer()
+                }
+                
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack (spacing: 5) {
+                        Text("Profile")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(Font(Fonts.CardTitle))
+                            .foregroundStyle(Colors.DarkGray)
+                        
+                        NamedTextField(text: $firstName, title: "First Name")
+                        NamedTextField(text: $lastName, title: "Last Name")
+                        NamedTextField(text: $email, title: "Email")
+                        NamedTextField(text: $phoneNumber, title: "Phone Number")
+                        
+                        Text("Email Notifications")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(Font(Fonts.CardTitle))
+                            .foregroundStyle(Colors.DarkGray)
+                        
+                        Group {
+                            Toggle("Order status", isOn: $emailOptionOrderStatus)
+                            Toggle("Password changes", isOn: $emailOptionPasswordChanges)
+                            Toggle("Special offers", isOn: $emailOptionSpecialOffer)
+                            Toggle("Newsletter", isOn: $emailOptionNewsletter)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .toggleStyle(CheckboxStyle())
+                        .font(Font(Fonts.ParagraphText))
+                    }
+                    
+                }
+                
                 Spacer()
-            }
-            
-            Text("First name")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(Fonts.HighlightText))
-                .foregroundStyle(Colors.DarkGray)
-            
-            TextField(firstName, text: $firstName)
-                .font(Font(Fonts.ParagraphText))
-                .foregroundStyle(Colors.DarkGray)
-                .padding(10)
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
-            
-            Text("Last name")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(Fonts.HighlightText))
-                .foregroundStyle(Colors.DarkGray)
-            
-            TextField(lastName, text: $lastName)
-                .font(Font(Fonts.ParagraphText))
-                .foregroundStyle(Colors.DarkGray)
-                .padding(10)
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
-            
-            Text("Email")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(Fonts.HighlightText))
-                .foregroundStyle(Colors.DarkGray)
-            
-            TextField(email, text: $email)
-                .font(Font(Fonts.ParagraphText))
-                .foregroundStyle(Colors.DarkGray)
-                .padding(10)
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
-            
-            Text("Phone number")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(Fonts.HighlightText))
-                .foregroundStyle(Colors.DarkGray)
-            
-            TextField(phoneNumber, text: $phoneNumber)
-                .font(Font(Fonts.ParagraphText))
-                .foregroundStyle(Colors.DarkGray)
-                .padding(10)
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.Gray, style: StrokeStyle(lineWidth: 0.5)))
-            
-            Text("Email Notifications")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(Font(Fonts.CardTitle))
-                .foregroundStyle(Colors.DarkGray)
-            
-            Group {
-                Toggle("Order status", isOn: $emailOptionOrderStatus)
-                Toggle("Password changes", isOn: $emailOptionPasswordChanges)
-                Toggle("Special offers", isOn: $emailOptionSpecialOffer)
-                Toggle("Newsletter", isOn: $emailOptionNewsletter)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .toggleStyle(CheckboxStyle())
-            .font(Font(Fonts.ParagraphText))
-            
-            Button("Log out") {
-                print("log out")
-                UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
-                self.presentation.wrappedValue.dismiss()
+                
+                Button("Log out") {
+                    print("log out")
+                    UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
+                    self.presentation.wrappedValue.dismiss()
+                }
+                .padding([.top, .bottom], 10)
+                .padding([.leading, .trailing], 15)
+                .frame(maxWidth: .infinity)
+                .font(Font(Fonts.LeadText))
+                .foregroundColor(Colors.DarkGray)
+                .background(Colors.Yellow)
+                .cornerRadius(10)
+                
+                HStack {
+                    Button("Disgard changes") {
+                        // show alert and move to home
+                    }
+                    .padding([.top, .bottom], 10)
+                    .padding([.leading, .trailing], 15)
+                    .font(Font(Fonts.LeadText))
+                    .foregroundColor(Colors.DarkGray)
+                    .background(.white)
+                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
+                    
+                    Button("Save changes") {
+                        if (firstName.isEmpty) || (lastName.isEmpty) || (email.isEmpty) || (phoneNumber.isEmpty) {
+                            self.showAlert = true
+                        } else {
+                            UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
+                            UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
+                            UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
+                            UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
+                            
+                            UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+                            UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+                            UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+                            UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+                            
+                            self.isLoggedIn = true
+                            UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
+                        }
+                    }
+                    .padding([.top, .bottom], 10)
+                    .padding([.leading, .trailing], 15)
+                    .font(Font(Fonts.LeadText))
+                    .foregroundColor(.white)
+                    .background(Colors.DarkGreen)
+                    .cornerRadius(10)
+                }
             }
             .padding([.top, .bottom], 10)
             .padding([.leading, .trailing], 15)
-            .frame(maxWidth: .infinity)
-            .font(Font(Fonts.LeadText))
-            .foregroundColor(Colors.DarkGray)
-            .background(Colors.Yellow)
-            .cornerRadius(10)
-            
-            HStack {
-                Button("Disgard changes") {
-                    // show alert and move to home
-                }
-                .padding([.top, .bottom], 10)
-                .padding([.leading, .trailing], 15)
-                .font(Font(Fonts.LeadText))
-                .foregroundColor(Colors.DarkGray)
-                .background(.white)
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
-                
-                Button("Save changes") {
-                    if (firstName.isEmpty) || (lastName.isEmpty) || (email.isEmpty) || (phoneNumber.isEmpty) {
-                        self.showAlert = true
-                    } else {
-                        UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
-                        UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
-                        UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
-                        UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
-                        
-                        UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-                        UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-                        UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-                        UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-                        
-                        self.isLoggedIn = true
-                        UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
-                    }
-                }
-                .padding([.top, .bottom], 10)
-                .padding([.leading, .trailing], 15)
-                .font(Font(Fonts.LeadText))
-                .foregroundColor(.white)
-                .background(Colors.DarkGreen)
-                .cornerRadius(10)
+            .alert("Empty First Name/Last Name/Email/Phone Number",
+                   isPresented: $showAlert) {
+                Button("OK", role: .cancel) { }
             }
-        }
-        .padding([.top, .bottom], 10)
-        .padding([.leading, .trailing], 15)
-        .alert("Empty First Name/Last Name/Email/Phone Number",
-               isPresented: $showAlert) {
-            Button("OK", role: .cancel) { }
+           .navigationBarTitleDisplayMode(.inline)
+           .toolbar {
+               NavBarToolBarContent()
+           }
         }
     }
 }

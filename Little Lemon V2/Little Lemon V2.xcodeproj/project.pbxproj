@@ -16,6 +16,10 @@
 		AE2EF8272B95A54700663F18 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8262B95A54700663F18 /* FetchedObjects.swift */; };
 		AE2EF8292B95A58600663F18 /* MenuListStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8282B95A58600663F18 /* MenuListStruct.swift */; };
 		AE2EF82B2B95A58E00663F18 /* MenuItemStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */; };
+		AE4C894A2BB137DB0069E4A6 /* OnboardingReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4C89492BB137DB0069E4A6 /* OnboardingReview.swift */; };
+		AE4C894C2BB139190069E4A6 /* NamedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4C894B2BB139180069E4A6 /* NamedText.swift */; };
+		AE4C894E2BB147850069E4A6 /* NavBarToolBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4C894D2BB147850069E4A6 /* NavBarToolBarContent.swift */; };
+		AE4C89512BB14B880069E4A6 /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4C89502BB14B880069E4A6 /* NavBarView.swift */; };
 		AE4EB28E2B9FEAF500E83EF0 /* Karla.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE4EB28C2B9FEAF500E83EF0 /* Karla.ttf */; };
 		AE4EB28F2B9FEAF500E83EF0 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE4EB28D2B9FEAF500E83EF0 /* Karla-Italic.ttf */; };
 		AE4EB2922B9FEBE300E83EF0 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4EB2912B9FEBE300E83EF0 /* Fonts.swift */; };
@@ -39,7 +43,7 @@
 		AED099942BAD607C00B86AD8 /* CustomButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED099932BAD607C00B86AD8 /* CustomButtonStyles.swift */; };
 		AEF419762BAD2F1500308DE4 /* OnboardingPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF419752BAD2F1500308DE4 /* OnboardingPreferences.swift */; };
 		AEFAB6552BABD16200653750 /* MenuCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */; };
-		AEFAB6572BABDB1B00653750 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB6562BABDB1B00653750 /* LoginView.swift */; };
+		AEFAB6572BABDB1B00653750 /* OnboardingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB6562BABDB1B00653750 /* OnboardingProfile.swift */; };
 		AEFAB6592BABDBD200653750 /* HeroSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB6582BABDBD200653750 /* HeroSectionView.swift */; };
 		AEFAB65B2BABDD3500653750 /* NamedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB65A2BABDD3500653750 /* NamedTextField.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +58,10 @@
 		AE2EF8262B95A54700663F18 /* FetchedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
 		AE2EF8282B95A58600663F18 /* MenuListStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListStruct.swift; sourceTree = "<group>"; };
 		AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemStruct.swift; sourceTree = "<group>"; };
+		AE4C89492BB137DB0069E4A6 /* OnboardingReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingReview.swift; sourceTree = "<group>"; };
+		AE4C894B2BB139180069E4A6 /* NamedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedText.swift; sourceTree = "<group>"; };
+		AE4C894D2BB147850069E4A6 /* NavBarToolBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarToolBarContent.swift; sourceTree = "<group>"; };
+		AE4C89502BB14B880069E4A6 /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
 		AE4EB28C2B9FEAF500E83EF0 /* Karla.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Karla.ttf; sourceTree = "<group>"; };
 		AE4EB28D2B9FEAF500E83EF0 /* Karla-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Italic.ttf"; sourceTree = "<group>"; };
 		AE4EB2912B9FEBE300E83EF0 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -78,7 +86,7 @@
 		AED099932BAD607C00B86AD8 /* CustomButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyles.swift; sourceTree = "<group>"; };
 		AEF419752BAD2F1500308DE4 /* OnboardingPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPreferences.swift; sourceTree = "<group>"; };
 		AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategoryButton.swift; sourceTree = "<group>"; };
-		AEFAB6562BABDB1B00653750 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AEFAB6562BABDB1B00653750 /* OnboardingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingProfile.swift; sourceTree = "<group>"; };
 		AEFAB6582BABDBD200653750 /* HeroSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroSectionView.swift; sourceTree = "<group>"; };
 		AEFAB65A2BABDD3500653750 /* NamedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,9 +115,12 @@
 		AE0C24192BAA7B7A007E957A /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				AE4C89502BB14B880069E4A6 /* NavBarView.swift */,
 				AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */,
 				AEFAB6582BABDBD200653750 /* HeroSectionView.swift */,
 				AEFAB65A2BABDD3500653750 /* NamedTextField.swift */,
+				AE4C894B2BB139180069E4A6 /* NamedText.swift */,
+				AE4C894D2BB147850069E4A6 /* NavBarToolBarContent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -201,8 +212,9 @@
 			isa = PBXGroup;
 			children = (
 				AE7322282B91B9AB005B665B /* Onboarding.swift */,
-				AEFAB6562BABDB1B00653750 /* LoginView.swift */,
+				AEFAB6562BABDB1B00653750 /* OnboardingProfile.swift */,
 				AEF419752BAD2F1500308DE4 /* OnboardingPreferences.swift */,
+				AE4C89492BB137DB0069E4A6 /* OnboardingReview.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -307,12 +319,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE4EB2922B9FEBE300E83EF0 /* Fonts.swift in Sources */,
+				AE4C894E2BB147850069E4A6 /* NavBarToolBarContent.swift in Sources */,
 				AE73221D2B91B925005B665B /* Persistence.swift in Sources */,
 				AE7322162B91B923005B665B /* ContentView.swift in Sources */,
 				AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */,
 				AE80BA502BA4F18B004CD953 /* DishModel.swift in Sources */,
 				AE1388762BA3F18900480030 /* MenuItemView.swift in Sources */,
 				AE4EB2942B9FF6AF00E83EF0 /* Colors.swift in Sources */,
+				AE4C894C2BB139190069E4A6 /* NamedText.swift in Sources */,
 				AE80BA532BA4F5D8004CD953 /* Dish+CoreDataClass.swift in Sources */,
 				AE08C2DE2B9EE98B00AEA573 /* FontFamilySample.swift in Sources */,
 				AE73222D2B91BE31005B665B /* Menu.swift in Sources */,
@@ -320,10 +334,12 @@
 				AEFAB6552BABD16200653750 /* MenuCategoryButton.swift in Sources */,
 				AE7322292B91B9AB005B665B /* Onboarding.swift in Sources */,
 				AE2EF8252B95975700663F18 /* UserProfile.swift in Sources */,
-				AEFAB6572BABDB1B00653750 /* LoginView.swift in Sources */,
+				AE4C89512BB14B880069E4A6 /* NavBarView.swift in Sources */,
+				AEFAB6572BABDB1B00653750 /* OnboardingProfile.swift in Sources */,
 				AE7322142B91B923005B665B /* Little_Lemon_V2App.swift in Sources */,
 				AE80BA542BA4F5D8004CD953 /* Dish+CoreDataProperties.swift in Sources */,
 				AE73222B2B91BE0D005B665B /* Home.swift in Sources */,
+				AE4C894A2BB137DB0069E4A6 /* OnboardingReview.swift in Sources */,
 				AEFAB6592BABDBD200653750 /* HeroSectionView.swift in Sources */,
 				AED099942BAD607C00B86AD8 /* CustomButtonStyles.swift in Sources */,
 				AE7322202B91B925005B665B /* Little_Lemon_V2.xcdatamodeld in Sources */,
