@@ -22,7 +22,7 @@ struct UserProfile: View {
     @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
     
     @State private var avatarItem: PhotosPickerItem?
-    @State private var avatarImage: Image = Image("profile-image-placeholder")
+    @State private var avatarImage: Image = Image(systemName: "person")
     
     @State private var showAlert = false
     
@@ -31,6 +31,8 @@ struct UserProfile: View {
     var body: some View {
         NavigationStack {
             VStack {
+                NavBarView(showProfileBtn: false)
+                
                 Text("Personal Information")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(Font(Fonts.CardTitle))
@@ -45,8 +47,9 @@ struct UserProfile: View {
                 HStack {
                     avatarImage
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 75, height: 75)
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .frame(width: 100, height: 100)
                     
                     Button("Change") {
                         // open photo library to select image
@@ -105,8 +108,21 @@ struct UserProfile: View {
                 
                 Button("Log out") {
                     print("log out")
+                    UserDefaults.standard.set("", forKey: UserDefaultsKeys.kFirstName)
+                    UserDefaults.standard.set("", forKey: UserDefaultsKeys.kLastName)
+                    UserDefaults.standard.set("", forKey: UserDefaultsKeys.kEmail)
+                    UserDefaults.standard.set("", forKey: UserDefaultsKeys.kPhoneNumebr)
+                    
+                    UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+                    UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+                    UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+                    UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+                    
+                    self.isLoggedIn = false
                     UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
-                    self.presentation.wrappedValue.dismiss()
+                    
+                    
+//                    self.presentation.wrappedValue.dismiss()
                 }
                 .padding([.top, .bottom], 10)
                 .padding([.leading, .trailing], 15)
@@ -153,16 +169,13 @@ struct UserProfile: View {
                     .cornerRadius(10)
                 }
             }
+            .navigationBarBackButtonHidden()
             .padding([.top, .bottom], 10)
             .padding([.leading, .trailing], 15)
             .alert("Empty First Name/Last Name/Email/Phone Number",
                    isPresented: $showAlert) {
                 Button("OK", role: .cancel) { }
             }
-           .navigationBarTitleDisplayMode(.inline)
-           .toolbar {
-               NavBarToolBarContent()
-           }
         }
     }
 }

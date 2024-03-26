@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct OnboardingProfile: View {
-    @State private var isLoggedIn = false
+    let persistence = PersistenceController.shared
+    @State private var isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
     
-    @State private var firstName = "Alice"
-    @State private var lastName = "Bob"
-    @State private var email = "hello@world.com"
-    @State private var phoneNumber = "123-456-7890"
+    @State private var firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
+    @State private var lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
+    @State private var email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
+    @State private var phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
     
     var body: some View {
         
         NavigationStack{
             VStack {
+                NavBarView(showBackBtn: false, showProfileBtn: false)
+                
                 HeroSectionView()
                     .frame(height: 300)
                 
@@ -28,7 +31,7 @@ struct OnboardingProfile: View {
                         .textCase(.uppercase)
                         .font(Font(Fonts.SectionTitle))
                     
-                    ScrollView(.vertical, showsIndicators: false) {
+                    ScrollView(.vertical) {
                         VStack(spacing: 15) {
                             Text("Profile")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,12 +53,9 @@ struct OnboardingProfile: View {
 //                .background(Color.gray)
                 .padding(10)
                 .navigationBarHidden(true)
-
-
-                
             }
             .navigationDestination(isPresented: $isLoggedIn) {
-               Home()
+               Menu().environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .onAppear {
                 self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)

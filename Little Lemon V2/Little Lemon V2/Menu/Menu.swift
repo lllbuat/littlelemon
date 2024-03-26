@@ -9,8 +9,7 @@ import SwiftUI
 
 struct Menu: View {
     private var ls_menuCategories = ["Starters", "Mains", "Desserts", "Drinks"]
-    
-    
+        
     @ObservedObject var dishesModel = DishesModel()
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -21,6 +20,8 @@ struct Menu: View {
     var body: some View {
         NavigationStack {
             VStack {
+                NavBarView(showBackBtn: false)
+                
                 VStack(spacing: 0) {
                     VStack {
                         Text("Little Lemon")
@@ -82,7 +83,7 @@ struct Menu: View {
                 .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
                 
                 VStack {
-                    NavigationView {
+                    NavigationStack {
                         FetchedObjects(predicate:buildPredicate(),
                                        sortDescriptors: buildSortDescriptors()) {
                             (dishes: [Dish]) in
@@ -110,12 +111,6 @@ struct Menu: View {
                 await dishesModel.reload(viewContext)
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                NavBarToolBarContent()
-            }
-            .toolbarBackground(.white, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
     

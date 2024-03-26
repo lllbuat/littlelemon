@@ -120,7 +120,6 @@
 				AEFAB6582BABDBD200653750 /* HeroSectionView.swift */,
 				AEFAB65A2BABDD3500653750 /* NamedTextField.swift */,
 				AE4C894B2BB139180069E4A6 /* NamedText.swift */,
-				AE4C894D2BB147850069E4A6 /* NavBarToolBarContent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -178,6 +177,7 @@
 		AE7322122B91B923005B665B /* Little Lemon V2 */ = {
 			isa = PBXGroup;
 			children = (
+				AEBAF7792BB265EF009582DD /* Stash */,
 				AE0C24192BAA7B7A007E957A /* Components */,
 				AE1388772BA3F42500480030 /* CoreData */,
 				AE1388732BA3F17300480030 /* Menu */,
@@ -211,7 +211,6 @@
 		AEA309702B9ECFB9002969C1 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				AE7322282B91B9AB005B665B /* Onboarding.swift */,
 				AEFAB6562BABDB1B00653750 /* OnboardingProfile.swift */,
 				AEF419752BAD2F1500308DE4 /* OnboardingPreferences.swift */,
 				AE4C89492BB137DB0069E4A6 /* OnboardingReview.swift */,
@@ -222,7 +221,6 @@
 		AEA309712B9ECFDC002969C1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				AE73222A2B91BE0D005B665B /* Home.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -242,6 +240,16 @@
 				AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */,
 			);
 			path = Sample;
+			sourceTree = "<group>";
+		};
+		AEBAF7792BB265EF009582DD /* Stash */ = {
+			isa = PBXGroup;
+			children = (
+				AE7322282B91B9AB005B665B /* Onboarding.swift */,
+				AE73222A2B91BE0D005B665B /* Home.swift */,
+				AE4C894D2BB147850069E4A6 /* NavBarToolBarContent.swift */,
+			);
+			path = Stash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -9,50 +9,50 @@ import SwiftUI
 import PhotosUI
 
 struct TempSample: View {
+    @State private var path: [Int] = []
+    
+    var body: some View {
+        // 2
+        NavigationStack(path: $path) {
 
-    var body: some View {    
-        NavigationStack {
-            VStack {
-                Text("Hello, world!")
+            Button("Start") {
+                // 3
+                path.append(1)
+
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                NavBarToolBarContent()
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button {
-//                        print("back")
-//                    } label: {
-//                        Image(systemName: "arrow.left.circle.fill")
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(height: 30, alignment: .center)
-//                            .foregroundStyle(Colors.DarkGreen)
-//                    }
-//                }
-//                
-//                ToolbarItem(placement: .principal) {
-//                    Image("littleLemon")
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(height: 50, alignment: .center)
-//                }
-//                
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Button {
-//                        print("profile")
-//                    } label: {
-//                        Image("profile-image-placeholder")
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fit)
-//                            .frame(height: 50, alignment: .center)
-//                    }
-//                }
+            .navigationDestination(for: Int.self) { int in
+                // 4
+                DetailView(path: $path, count: int)
+
             }
+            .navigationTitle("Home")
         }
     }
 }
 
+struct DetailView: View {
+    // 5
+    @Binding var path: [Int]
 
+    
+    let count: Int
+    
+    var body: some View {
+        Button("Go deeper") {
+            path.append(count + 1)
+        }
+        .navigationBarTitle(count.description)
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Button("Pop to Root") {
+                    // 6
+                    path = []
+
+                }
+            }
+        }
+    }
+}
 
 
 #Preview {

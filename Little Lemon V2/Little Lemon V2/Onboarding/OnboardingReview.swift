@@ -12,25 +12,34 @@ struct OnboardingReview: View {
     
     @Environment(\.presentationMode) var presentation
     
-    @State private var firstName = "Alice"
-    @State private var lastName = "Bob"
-    @State private var email = "hello@world.com"
-    @State private var phoneNumber = "123-456-7890"
+    @State private var isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
     
-    @State private var emailOptionOrderStatus = true
-    @State private var emailOptionPasswordChanges = false
-    @State private var emailOptionSpecialOffer = true
-    @State private var emailOptionNewsletter = true
+    @State private var firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
+    @State private var lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
+    @State private var email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
+    @State private var phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
+    
+    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
     
     var body: some View {
         NavigationStack{
             VStack {
+                NavBarView(showBackBtn: false, showProfileBtn: false)
+                
                 HeroSectionView()
                     .frame(height: 300)
                 
                 VStack {
-                    ScrollView(.vertical, showsIndicators: false) {
+                    ScrollView(.vertical) {
                         VStack(spacing: 15) {
+                            Text("Review")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .textCase(.uppercase)
+                                .font(Font(Fonts.SectionTitle))
+                            
                             Text("Profile")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .font(Font(Fonts.CardTitle))
@@ -69,19 +78,42 @@ struct OnboardingReview: View {
                                 .frame(maxWidth: .infinity)
                         }.buttonStyle(LightButton())
                         
-                        NavigationLink(destination: Menu()
-                            .environment(\.managedObjectContext, persistence.container.viewContext)) {
+                        
+                        Button {
+                            UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
+                            UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
+                            UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
+                            UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
+                            
+                            UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+                            UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+                            UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+                            UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+                            
+                            self.isLoggedIn = true
+                            UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
+                        } label: {
                             Text("Register")
                                 .frame(maxWidth: .infinity)
                         }.buttonStyle(DarkButton())
+                        
+//                        NavigationLink(destination: Menu()
+//                            .environment(\.managedObjectContext, persistence.container.viewContext)) {
+//                            Text("Register")
+//                                .frame(maxWidth: .infinity)
+//                        }.buttonStyle(DarkButton())
                     }
                 }
                 .padding(10)
                 .navigationBarHidden(true)
+                .navigationDestination(isPresented: $isLoggedIn) {
+                    Menu()
+                }
             }
         }
     }
 }
+
 
 #Preview {
     OnboardingReview()

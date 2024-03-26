@@ -15,8 +15,8 @@ struct Little_Lemon_V2App: App {
         WindowGroup {
 //            Home()
 //            OnboardingProfile()
-            OnboardingReview()
-//            TempSample()
+//            OnboardingReview()
+            TempSample()
             
 //            TempSample()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)

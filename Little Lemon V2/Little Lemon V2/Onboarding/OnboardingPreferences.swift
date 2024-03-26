@@ -10,19 +10,21 @@ import SwiftUI
 struct OnboardingPreferences: View {
     @Environment(\.presentationMode) var presentation
     
-    @State private var emailOptionOrderStatus = true
-    @State private var emailOptionPasswordChanges = true
-    @State private var emailOptionSpecialOffer = true
-    @State private var emailOptionNewsletter = true
+    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
     
     var body: some View {
         NavigationStack{
             VStack {
+                NavBarView(showBackBtn: false, showProfileBtn: false)
+                
                 HeroSectionView()
                     .frame(height: 300)
                                 
                 VStack {
-                    ScrollView(.vertical, showsIndicators: false) {
+                    ScrollView(.vertical) {
                         VStack(spacing: 15) {
                             Text("Email Notifications")
                                 .frame(maxWidth: .infinity, alignment: .leading)
