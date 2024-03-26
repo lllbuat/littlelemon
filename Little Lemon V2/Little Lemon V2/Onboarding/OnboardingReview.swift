@@ -107,7 +107,7 @@ struct OnboardingReview: View {
                 .padding(10)
                 .navigationBarHidden(true)
                 .navigationDestination(isPresented: $isLoggedIn) {
-                    Menu()
+                    Menu().environment(\.managedObjectContext, persistence.container.viewContext)
                 }
             }
         }

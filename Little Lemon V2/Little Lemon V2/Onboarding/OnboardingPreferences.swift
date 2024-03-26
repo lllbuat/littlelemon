@@ -10,10 +10,12 @@ import SwiftUI
 struct OnboardingPreferences: View {
     @Environment(\.presentationMode) var presentation
     
-    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+    @State private var goToReview = false
+    
+    @State private var emailOptionOrderStatus = false
+    @State private var emailOptionPasswordChanges = false
+    @State private var emailOptionSpecialOffer = false
+    @State private var emailOptionNewsletter = false
     
     var body: some View {
         NavigationStack{
@@ -52,7 +54,14 @@ struct OnboardingPreferences: View {
                                 .frame(maxWidth: .infinity)
                         }.buttonStyle(LightButton())
                         
-                        NavigationLink(destination: OnboardingReview()) {
+                        Button {
+                            UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+                            UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+                            UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+                            UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+                            
+                            self.goToReview = true
+                        } label: {
                             Text("Review")
                                 .frame(maxWidth: .infinity)
                         }.buttonStyle(DarkButton())
@@ -61,6 +70,9 @@ struct OnboardingPreferences: View {
                 .padding(10)
                 .navigationBarHidden(true)
             }
+        }
+        .navigationDestination(isPresented: $goToReview) {
+            OnboardingReview()
         }
     }
 }

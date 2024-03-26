@@ -118,11 +118,10 @@ struct UserProfile: View {
                     UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
                     UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
                     
-                    self.isLoggedIn = false
                     UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
                     
                     
-//                    self.presentation.wrappedValue.dismiss()
+                    self.presentation.wrappedValue.dismiss()
                 }
                 .padding([.top, .bottom], 10)
                 .padding([.leading, .trailing], 15)
