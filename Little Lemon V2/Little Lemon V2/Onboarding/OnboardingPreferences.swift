@@ -18,6 +18,7 @@ struct OnboardingPreferences: View {
     @State private var emailOptionNewsletter = false
     
     var body: some View {
+        let _ = print("OnboardingPreferences")
         NavigationStack{
             VStack {
                 NavBarView(showBackBtn: false, showProfileBtn: false)

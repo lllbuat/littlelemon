@@ -22,9 +22,11 @@ struct UserProfile: View {
     @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
     
     @State private var avatarItem: PhotosPickerItem?
-    @State private var avatarImage: Image = Image(systemName: "person")
+    @State private var avatarImage: Image = Image("profile-image-placeholder")/*Image(systemName: "person")*/
     
-    @State private var showAlert = false
+    @State private var fieldAlertText = ""
+    @State private var showFieldAlert = false
+    @State private var showDisgardConfirmAlert = false
     
     @Environment(\.presentationMode) var presentation
     
@@ -33,11 +35,7 @@ struct UserProfile: View {
             VStack {
                 NavBarView(showProfileBtn: false)
                 
-                Text("Personal Information")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(Font(Fonts.CardTitle))
-                    .foregroundStyle(Colors.DarkGray)
-                    .background(.white)
+                SectionTitleView(title: "Personal Information")
                 
                 Text("Avatar")
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,47 +48,33 @@ struct UserProfile: View {
                         .scaledToFill()
                         .clipShape(Circle())
                         .frame(width: 100, height: 100)
+                                        
+                    Button {
+                        // change avatar
+                    } label: {
+                        Text("Change")
+                    }.buttonStyle(DarkButton())
                     
-                    Button("Change") {
-                        // open photo library to select image
-                    }
-                    .padding([.top, .bottom], 10)
-                    .padding([.leading, .trailing], 15)
-                    .font(Font(Fonts.LeadText))
-                    .foregroundColor(.white)
-                    .background(Colors.DarkGreen)
-                    .cornerRadius(10)
+                    Button {
+                        // remove avatar
+                    } label: {
+                        Text("Remove")
+                    }.buttonStyle(LightButton())
                     
-                    Button("Remove") {
-                        // remove image from app
-                    }
-                    .padding([.top, .bottom], 10)
-                    .padding([.leading, .trailing], 15)
-                    .font(Font(Fonts.LeadText))
-                    .foregroundColor(Colors.DarkGray)
-                    .background(.white)
-                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
                     Spacer()
                 }
-                
-                
+                                                
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack (spacing: 5) {
-                        Text("Profile")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(Font(Fonts.CardTitle))
-                            .foregroundStyle(Colors.DarkGray)
+                        SectionTitleView(title: "Profile")
                         
                         NamedTextField(text: $firstName, title: "First Name")
                         NamedTextField(text: $lastName, title: "Last Name")
                         NamedTextField(text: $email, title: "Email")
+                            .autocapitalization(.none)
                         NamedTextField(text: $phoneNumber, title: "Phone Number")
                         
-                        Text("Email Notifications")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(Font(Fonts.CardTitle))
-                            .foregroundStyle(Colors.DarkGray)
-                        
+                        SectionTitleView(title: "Email Notifications")
                         Group {
                             Toggle("Order status", isOn: $emailOptionOrderStatus)
                             Toggle("Password changes", isOn: $emailOptionPasswordChanges)
@@ -101,13 +85,12 @@ struct UserProfile: View {
                         .toggleStyle(CheckboxStyle())
                         .font(Font(Fonts.ParagraphText))
                     }
-                    
                 }
                 
                 Spacer()
                 
-                Button("Log out") {
-                    print("log out")
+                Button {
+                    // reset all user default values
                     UserDefaults.standard.set("", forKey: UserDefaultsKeys.kFirstName)
                     UserDefaults.standard.set("", forKey: UserDefaultsKeys.kLastName)
                     UserDefaults.standard.set("", forKey: UserDefaultsKeys.kEmail)
@@ -121,61 +104,136 @@ struct UserProfile: View {
                     UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
                     
                     
-                    self.presentation.wrappedValue.dismiss()
+//                    self.presentation.wrappedValue.dismiss()
+                } label: {
+                    Text("Log out")
+                        .frame(maxWidth: .infinity)
                 }
-                .padding([.top, .bottom], 10)
-                .padding([.leading, .trailing], 15)
-                .frame(maxWidth: .infinity)
-                .font(Font(Fonts.LeadText))
-                .foregroundColor(Colors.DarkGray)
-                .background(Colors.Yellow)
-                .cornerRadius(10)
+                .buttonStyle(YellowButton())
                 
                 HStack {
-                    Button("Disgard changes") {
+                    Button {
                         // show alert and move to home
+                        self.showDisgardConfirmAlert = true
+                    } label: {
+                        Text("Disgard changes")
+                            .frame(maxWidth: .infinity)
                     }
-                    .padding([.top, .bottom], 10)
-                    .padding([.leading, .trailing], 15)
-                    .font(Font(Fonts.LeadText))
-                    .foregroundColor(Colors.DarkGray)
-                    .background(.white)
-                    .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Colors.DarkGreen, style: StrokeStyle(lineWidth: 0.5)))
+                    .buttonStyle(LightButton())
+                    .alert(isPresented: $showDisgardConfirmAlert) {
+                        Alert(
+                            title: Text("Confirm to disgard?"),
+                            message: Text("Changes to profile will not be saved."),
+                            primaryButton: .default(
+                                Text("Cancel"),
+                                action: { }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Confirm"),
+                                action: {
+                                    self.presentation.wrappedValue.dismiss()
+                                }
+                            )
+                        )
+                    }
                     
-                    Button("Save changes") {
-                        if (firstName.isEmpty) || (lastName.isEmpty) || (email.isEmpty) || (phoneNumber.isEmpty) {
-                            self.showAlert = true
-                        } else {
-                            UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
-                            UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
-                            UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
-                            UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
-                            
-                            UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-                            UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-                            UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-                            UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-                            
-                            self.isLoggedIn = true
-                            UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
-                        }
+                    Button {
+                        self.validateForm()
+                    } label: {
+                        Text("Save changes")
+                            .frame(maxWidth: .infinity)
                     }
-                    .padding([.top, .bottom], 10)
-                    .padding([.leading, .trailing], 15)
-                    .font(Font(Fonts.LeadText))
-                    .foregroundColor(.white)
-                    .background(Colors.DarkGreen)
-                    .cornerRadius(10)
+                    .buttonStyle(DarkButton())
+                    .alert(fieldAlertText, isPresented: $showFieldAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
                 }
+
+
             }
             .navigationBarBackButtonHidden()
-            .padding([.top, .bottom], 10)
-            .padding([.leading, .trailing], 15)
-            .alert("Empty First Name/Last Name/Email/Phone Number",
-                   isPresented: $showAlert) {
-                Button("OK", role: .cancel) { }
+            .padding(10)
+
+        }
+    }
+    
+    private func validateForm() {
+        
+        // name must contain just letters
+        let firstNameIsValid = isValid(name: self.firstName)
+        let lastNameIsValid = isValid(name: self.lastName)
+        let emailIsValid = isValid(email: self.email)
+        let phoneNumberIsValid = isValid(phone: self.phoneNumber)
+        
+        guard firstNameIsValid && lastNameIsValid && emailIsValid && phoneNumberIsValid
+        else {
+            var invalidFirstNameMessage = ""
+            if !firstNameIsValid {
+                invalidFirstNameMessage = "First name can only contain letters and must have at least 3 characters\n\n"
+            }
+            
+            var invalidLastNameMessage = ""
+            if !lastNameIsValid {
+                invalidLastNameMessage = "Last name can only contain letters and must have at least 3 characters\n\n"
+            }
+            
+            var invalidPhoneMessage = ""
+            if !phoneNumberIsValid {
+                invalidPhoneMessage = "The phone number can only contain numbers and cannot be blank.\n\n"
+            }
+            
+            var invalidEmailMessage = ""
+            if !emailIsValid {
+                invalidEmailMessage = "The e-mail is invalid and cannot be blank."
+            }
+            
+            self.fieldAlertText = "Found these errors in the form:\n\n \(invalidFirstNameMessage)\(invalidLastNameMessage)\(invalidPhoneMessage)\(invalidEmailMessage)"
+            
+            self.showFieldAlert.toggle()
+            return
+        }
+        
+        // save to user default
+        UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
+        UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
+        UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
+        UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
+        
+        UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+        UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+        UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+        UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+        
+        self.isLoggedIn = true
+        UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
+        
+        self.fieldAlertText = "Profile Saved!"
+        self.showFieldAlert.toggle()
+    }
+    
+    private func isValid(name: String) -> Bool {
+        guard !name.isEmpty, name.count > 2
+        else { return false }
+        for chr in name {
+            if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") && !(chr == " ") ) {
+                return false
             }
         }
+        return true
+    }
+    
+    private func isValid(email:String) -> Bool {
+        guard !email.isEmpty else { return false }
+        let emailValidationRegex = "^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"
+        let emailValidationPredicate = NSPredicate(format: "SELF MATCHES %@", emailValidationRegex)
+        return emailValidationPredicate.evaluate(with: email)
+    }
+        
+    private func isValid(phone:String) -> Bool {
+        guard !phoneNumber.isEmpty else { return false }
+        let phoneValidationRegex = "^[0-9]+$"
+        let phoneValidationPredicate = NSPredicate(format: "SELF MATCHES %@", phoneValidationRegex)
+        return phoneValidationPredicate.evaluate(with: phoneNumber)
     }
 }
 
@@ -183,18 +241,4 @@ struct UserProfile: View {
     UserProfile()
 }
 
-
-struct CheckboxStyle: ToggleStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        return HStack {
-            Image(systemName: configuration.isOn ? "checkmark.square.fill" : "square")
-                .resizable()
-                .frame(width: 24, height: 24)
-                .foregroundColor(configuration.isOn ? Colors.DarkGreen : .gray)
-                .font(Font(Fonts.HighlightText))
-                configuration.label
-        }
-        .onTapGesture { configuration.isOn.toggle() }
-    }
-}
 

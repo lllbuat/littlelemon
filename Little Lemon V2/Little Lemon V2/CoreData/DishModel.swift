@@ -22,6 +22,8 @@ class DishesModel: ObservableObject {
             return
         }
         
+        Dish.deleteAll(coreDataContext)
+        
         DishesModel.isRunning = true
         
         let url = URL(string: "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json")!
@@ -33,7 +35,7 @@ class DishesModel: ObservableObject {
             menuItems = fullMenu.menu
                         
             // populate Core Data
-            Dish.deleteAll(coreDataContext)
+//            Dish.deleteAll(coreDataContext)
             Dish.createDishesFrom(menuItems:menuItems, coreDataContext)
         } catch (let error){
             print(error.localizedDescription)

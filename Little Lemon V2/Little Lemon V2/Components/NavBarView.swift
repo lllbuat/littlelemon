@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NavBarView: View {
-    let persistence = PersistenceController.shared
+//    let persistence = PersistenceController.shared
     @Environment(\.presentationMode) var presentation
     
     @State var showBackBtn: Bool = true

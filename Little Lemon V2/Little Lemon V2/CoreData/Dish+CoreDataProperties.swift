@@ -29,7 +29,7 @@ extension Dish : Identifiable {
     
     static func createDishesFrom(menuItems:[MenuItem],
                                  _ context:NSManagedObjectContext) {
-//        print("# Dishes ", Dish.countRecords(context))
+        print("# Dishes ", Dish.countRecords(context))
         
         for item in menuItems {
             let dishExist = exist(title: item.title, context) ?? false

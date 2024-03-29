@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct OnboardingProfile: View {
-    let persistence = PersistenceController.shared
+//    let persistence = PersistenceController.shared
     
     @State private var showAlert = false
     @State private var goToPreference = false
     
-    @State private var isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
+    @State private var isLoggedIn = false
+//    UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
     
     @State private var firstName = ""
     @State private var lastName = ""
@@ -21,7 +22,7 @@ struct OnboardingProfile: View {
     @State private var phoneNumber = ""
     
     var body: some View {
-        
+        let _ = print("OnboardingProfile")
         NavigationStack{
             VStack {
                 NavBarView(showBackBtn: false, showProfileBtn: false)
@@ -72,14 +73,17 @@ struct OnboardingProfile: View {
                 .navigationBarHidden(true)
             }
             .navigationDestination(isPresented: $isLoggedIn) {
-               Menu().environment(\.managedObjectContext, persistence.container.viewContext)
+               Menu()
+//                    .environment(\.managedObjectContext, persistence.container.viewContext)
             }
             .navigationDestination(isPresented: $goToPreference) {
                OnboardingPreferences()
             }
             .onAppear {
-//                self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
-                print(self.isLoggedIn)
+                self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
+//                print(self.isLoggedIn)
+//                self.isLoggedIn = false
+//                UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
             }
         }
         .alert("Empty First Name/Last Name/Email/Phone Number",

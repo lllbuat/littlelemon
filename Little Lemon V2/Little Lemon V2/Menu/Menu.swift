@@ -18,6 +18,7 @@ struct Menu: View {
     @State var selectedCategory = ""
     
     var body: some View {
+        let _ = print("Menu")
         NavigationStack {
             VStack {
                 NavBarView(showBackBtn: false)
@@ -83,35 +84,35 @@ struct Menu: View {
                 .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
                 
                 VStack {
-                    NavigationStack {
-                        FetchedObjects(predicate:buildPredicate(),
-                                       sortDescriptors: buildSortDescriptors()) {
-                            (dishes: [Dish]) in
-                            if dishes.count == 0 {
-                                Text("None matches criteria")
-                                    .font(Font(Fonts.HighlightText))
-                                    .foregroundStyle(Colors.DarkGray)
-                            } else {
-                                List {
-                                    // Code for the list enumeration here
-                                    ForEach(dishes, id: \.self) { dish in
-                                        MenuItemView(dish)
-                                    }
+                    FetchedObjects(predicate:buildPredicate(),
+                                   sortDescriptors: buildSortDescriptors()) {
+                        (dishes: [Dish]) in
+                        if dishes.count == 0 {
+                            Text("None matches criteria")
+                                .font(Font(Fonts.HighlightText))
+                                .foregroundStyle(Colors.DarkGray)
+                        } else {
+                            List {
+                                // Code for the list enumeration here
+                                ForEach(dishes, id: \.self) { dish in
+                                    MenuItemView(dish)
                                 }
-                                .listStyle(.plain)
                             }
-                            
-                            
+                            .listStyle(.plain)
                         }
                     }
                 }
                 .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
             }
-            .task {
-                await dishesModel.reload(viewContext)
-            }
-            .navigationBarBackButtonHidden(true)
         }
+        .onAppear {
+            let _ = print("on appear")
+        }
+        .task {
+            let _ = print("task run")
+            await dishesModel.reload(viewContext)
+        }
+        .navigationBarBackButtonHidden(true)
     }
     
     private func buildPredicate() -> NSPredicate {

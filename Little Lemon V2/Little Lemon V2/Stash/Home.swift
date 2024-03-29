@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Home: View {
-    let persistence = PersistenceController.shared
+//    let persistence = PersistenceController.shared
     
     var body: some View {
         Text("Hello")

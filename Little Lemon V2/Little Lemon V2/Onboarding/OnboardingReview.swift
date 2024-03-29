@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingReview: View {
-    let persistence = PersistenceController.shared
+//    let persistence = PersistenceController.shared
     
     @Environment(\.presentationMode) var presentation
     
@@ -107,7 +107,8 @@ struct OnboardingReview: View {
                 .padding(10)
                 .navigationBarHidden(true)
                 .navigationDestination(isPresented: $isLoggedIn) {
-                    Menu().environment(\.managedObjectContext, persistence.container.viewContext)
+                    Menu()
+//                        .environment(\.managedObjectContext, persistence.container.viewContext)
                 }
             }
         }

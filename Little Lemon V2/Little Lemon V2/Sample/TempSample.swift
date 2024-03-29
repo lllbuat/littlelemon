@@ -9,51 +9,37 @@ import SwiftUI
 import PhotosUI
 
 struct TempSample: View {
-    @State private var path: [Int] = []
-    
+    @State private var path: [Int] = [] // Nothing on the stack by default.
+
     var body: some View {
-        // 2
         NavigationStack(path: $path) {
-
-            Button("Start") {
-                // 3
-                path.append(1)
-
+            VStack {
+                NavigationLink("Purple", value: 1)
+                    .buttonStyle(LightButton())
             }
-            .navigationDestination(for: Int.self) { int in
-                // 4
-                DetailView(path: $path, count: int)
-
+            .navigationDestination(for: Int.self) { i in
+                Text("View " + String(i))
             }
-            .navigationTitle("Home")
         }
     }
 }
 
-struct DetailView: View {
-    // 5
-    @Binding var path: [Int]
+struct ColorDetail: View {
+    @Binding var path: [Color]
+    let color: Color
 
-    
-    let count: Int
-    
     var body: some View {
-        Button("Go deeper") {
-            path.append(count + 1)
-        }
-        .navigationBarTitle(count.description)
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Button("Pop to Root") {
-                    // 6
-                    path = []
+        VStack {
+            color
+                .ignoresSafeArea()
+            Text("Path " + String(path.count))
+            Button("Pop") {
+                path.removeLast()
 
-                }
             }
         }
     }
 }
-
 
 #Preview {
     TempSample()

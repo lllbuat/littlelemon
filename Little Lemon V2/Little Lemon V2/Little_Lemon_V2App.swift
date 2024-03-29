@@ -14,20 +14,21 @@ struct Little_Lemon_V2App: App {
     var body: some Scene {
         WindowGroup {
 //            Home()
-            OnboardingProfile()
-//            OnboardingReview()
-//            TempSample()
+//            OnboardingProfile().environment(\.managedObjectContext, persistenceController.container.viewContext)
             
-//            TempSample()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            OnboardingReview().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TempSample()
+            
+//            TempSample().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            
+//            TempSample2().environment(\.managedObjectContext, persistenceController.container.viewContext)
             
 //            FontFamilySample()
-//            UserProfile()
-//            Menu()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
-//            Onboarding()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            UserProfile()
+            
+//            Menu().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            
         }
     }
 }

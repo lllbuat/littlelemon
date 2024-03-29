@@ -4,28 +4,33 @@ import SwiftUI
 
 struct FetchedObjects<T, Content>: View where T : NSManagedObject, Content : View {
     
-  let content: ([T]) -> Content
+    let content: ([T]) -> Content
 
-  var request: FetchRequest<T>
-  var results: FetchedResults<T>{ request.wrappedValue }
+    var request: FetchRequest<T>
+    var results: FetchedResults<T>{ request.wrappedValue }
     
-  init (
-    predicate: NSPredicate = NSPredicate(value: true),
-    sortDescriptors: [NSSortDescriptor] = [],
-    @ViewBuilder content: @escaping ([T]) -> Content
-  ) {
-    self.content = content
-      self.request = FetchRequest(
-      entity: T.entity(),
-      sortDescriptors: sortDescriptors,
-      predicate: predicate
-    )
-  }
+    init (
+        predicate: NSPredicate = NSPredicate(value: true),
+        sortDescriptors: [NSSortDescriptor] = [],
+        @ViewBuilder content: @escaping ([T]) -> Content
+    ) {
+//        let _ = print("FetchObjects")
+        self.content = content
+        self.request = FetchRequest(
+            entity: T.entity(),
+            sortDescriptors: sortDescriptors,
+            predicate: predicate
+        )
+        
+//        let request = T.request()
+//        request.predicate = predicate
+//        request.sortDescriptors = sortDescriptors
+    }
   
   
   var body: some View {
-//      let _ = print("FetchObject ",results.count)
-    self.content(results.map { $0 })
+//      let _ = print("FetchObjects ",results.count)
+      self.content(results.map{ $0 })
   }
   
   
