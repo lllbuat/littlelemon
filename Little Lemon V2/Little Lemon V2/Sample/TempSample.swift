@@ -9,18 +9,82 @@ import SwiftUI
 import PhotosUI
 
 struct TempSample: View {
-    @State private var path: [Int] = [] // Nothing on the stack by default.
+    @State var path: [String] = []
 
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
-                NavigationLink("Purple", value: 1)
-                    .buttonStyle(LightButton())
+                NavigationLink("Go to View1", value: "1")
             }
-            .navigationDestination(for: Int.self) { i in
-                Text("View " + String(i))
+            .navigationDestination(for: String.self) { pathValue in
+                if pathValue == "1" {
+                    View1(path: $path)
+                } else if pathValue == "2" {
+                    View2(path: $path)
+                } else if pathValue == "3" {
+                    View3(path: $path)
+                }
             }
         }
+
+    }
+}
+
+
+struct View1: View {
+    @Binding var path: [String]
+
+    var body: some View {
+        VStack {
+            Text("View 1")
+            NavigationLink("Go to View2", value: "2")
+                .buttonStyle(LightButton())
+            Button("Pop") {
+                path.removeLast()
+            }
+        }
+//        .navigationDestination(for: String.self) { pathValue in
+//            if pathValue == "2" {
+//                View2(path: $path)
+//            } else if pathValue == "3" {
+//                View3(path: $path)
+//            }
+//        }
+
+    }
+}
+
+struct View2: View {
+    @Binding var path: [String]
+
+    var body: some View {
+            VStack {
+                Text("View 2")
+                NavigationLink("Go to View3", value: "3")
+                    .buttonStyle(LightButton())
+                Button("Pop") {
+                    path.removeLast()
+                }
+            }
+//            .navigationDestination(for: String.self) { pathValue in
+//                View3(path: $path)
+//            }
+    }
+}
+
+struct View3: View {
+    @Binding var path: [String]
+
+    var body: some View {
+            VStack {
+                Text("View 3")
+                Button("Pop") {
+                    path.removeLast()
+                }
+                Button("Pop to root") {
+                    path.removeAll()
+                }
+            }
     }
 }
 

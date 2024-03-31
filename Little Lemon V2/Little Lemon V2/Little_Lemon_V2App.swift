@@ -18,6 +18,7 @@ struct Little_Lemon_V2App: App {
             
 //            OnboardingReview().environment(\.managedObjectContext, persistenceController.container.viewContext)
             TempSample()
+//            TempSample2()
             
 //            TempSample().environment(\.managedObjectContext, persistenceController.container.viewContext)
             
