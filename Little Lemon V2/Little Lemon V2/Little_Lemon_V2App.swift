@@ -14,10 +14,10 @@ struct Little_Lemon_V2App: App {
     var body: some Scene {
         WindowGroup {
 //            Home()
-//            OnboardingProfile().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            OnboardingProfileView().environment(\.managedObjectContext, persistenceController.container.viewContext)
             
 //            OnboardingReview().environment(\.managedObjectContext, persistenceController.container.viewContext)
-            TempSample()
+//            TempSample()
 //            TempSample2()
             
 //            TempSample().environment(\.managedObjectContext, persistenceController.container.viewContext)

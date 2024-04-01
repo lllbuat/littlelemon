@@ -11,51 +11,68 @@ struct TempSample2: View {
     @State private var navPath: [String] = []
 
     var body: some View {
-        NavigationStack(path: $navPath) {
-            Screen1(path: $navPath)
-        }
+        Text("test")
     }
 }
 
-struct Screen1: View {
+struct View1: View {
     @Binding var path: [String]
 
     var body: some View {
-        Text("Screen 1")
-            .font(.title)
-        NavigationLink(value: "View 2") {
-            Text("Go to Screen 2")
-        }
-        .navigationDestination(for: String.self) { pathValue in
-            // depending on the value you pass you will navigate accrodingly
-            if pathValue == "View 2" {
-                Screen2(path: $path)
-            } else if pathValue == "View 3" {
-                Screen3(path: $path)
+        VStack {
+            Text("View 1")
+            NavigationLink("Go to View2", value: "2")
+                .buttonStyle(LightButton())
+            Button("Pop") {
+                path.removeLast()
             }
         }
     }
 }
 
-struct Screen2: View {
+struct View2: View {
     @Binding var path: [String]
+
     var body: some View {
-        Text("Screen 2")
-            .font(.title)
-        NavigationLink(value: "View 3") {
-            Text("Go to Screen 3")
-        }
+            VStack {
+                Text("View 2")
+                NavigationLink("Go to View3", value: "3")
+                    .buttonStyle(LightButton())
+                Button("Pop") {
+                    path.removeLast()
+                }
+            }
     }
 }
 
-struct Screen3: View {
+struct View3: View {
     @Binding var path: [String]
+
     var body: some View {
-        Text("Screen 3")
-            .font(.title)
-        Button("Back to root") {
-            // to navigate to root view you simply pop all the views from navPath
-            path.removeAll()
-        }
+            VStack {
+                Text("Unknown")
+                Button("Pop") {
+                    path.removeLast()
+                }
+                Button("Pop to root") {
+                    path.removeAll()
+                }
+            }
+    }
+}
+
+struct SampleView: View {
+    @Binding var path: NavigationPath
+
+    var body: some View {
+            VStack {
+                Text("Unknown")
+                Button("Pop") {
+                    path.removeLast()
+                }
+                Button("Pop to root") {
+                    path.removeLast(path.count)
+                }
+            }
     }
 }

@@ -7,25 +7,26 @@
 
 import SwiftUI
 
-struct OnboardingProfile: View {
-//    let persistence = PersistenceController.shared
+struct OnboardingProfileView: View {
+    static let tag = ViewTags.OnboardingProfileView
+    @State var path: NavigationPath = .init()
     
     @State private var showAlert = false
-    @State private var goToPreference = false
-    
+//    @State private var goToPreference = false
     @State private var isLoggedIn = false
-//    UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
     
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
     @State private var phoneNumber = ""
     
+    @State var clearFields = false
+    
     var body: some View {
-        let _ = print("OnboardingProfile")
-        NavigationStack{
+//        let _ = print("OnboardingProfile")
+        NavigationStack(path: $path) {
             VStack {
-                NavBarView(showBackBtn: false, showProfileBtn: false)
+                NavBarView(path: $path, showBackBtn: false, showProfileBtn: false)
                 
                 HeroSectionView()
                     .frame(height: 300)
@@ -46,6 +47,7 @@ struct OnboardingProfile: View {
                             NamedTextField(text: $firstName, title: "First Name")
                             NamedTextField(text: $lastName, title: "Last Name")
                             NamedTextField(text: $email, title: "Email")
+                                .textInputAutocapitalization(.never)
                             NamedTextField(text: $phoneNumber, title: "Phone Number")
                         }
                         
@@ -60,7 +62,8 @@ struct OnboardingProfile: View {
                             UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
                             UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
                             UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
-                            self.goToPreference = true
+                            
+                            path.append(OnboardingPreferencesView.tag)
                         }
                     } label: {
                         Text("Next")
@@ -72,18 +75,35 @@ struct OnboardingProfile: View {
                 .padding(10)
                 .navigationBarHidden(true)
             }
-            .navigationDestination(isPresented: $isLoggedIn) {
-               Menu()
-//                    .environment(\.managedObjectContext, persistence.container.viewContext)
+            .navigationDestination(for: String.self) { tag in
+                if tag == ViewTags.MenuView {
+                    MenuView(path: $path)
+                } else if tag == ViewTags.OnboardingProfileView {
+                    OnboardingProfileView()
+                } else if tag == ViewTags.OnboardingPreferencesView {
+                    OnboardingPreferencesView(path: $path)
+                } else if tag == ViewTags.OnboardingReviewView {
+                    OnboardingReviewView(path: $path)
+                } else if tag == ViewTags.UserProfileView {
+                    UserProfileView(path: $path)
+                } else {
+                    SampleView(path: $path)
+                }
             }
-            .navigationDestination(isPresented: $goToPreference) {
-               OnboardingPreferences()
-            }
+            
             .onAppear {
                 self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
-//                print(self.isLoggedIn)
-//                self.isLoggedIn = false
-//                UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
+                if self.isLoggedIn {
+                    path.append(MenuView.tag)
+                } else if self.clearFields {
+                    // reset all fields
+                    firstName = ""
+                    lastName = ""
+                    email = ""
+                    phoneNumber = ""
+                    
+                    self.clearFields = false
+                }
             }
         }
         .alert("Empty First Name/Last Name/Email/Phone Number",
@@ -93,6 +113,6 @@ struct OnboardingProfile: View {
     }
 }
 
-#Preview {
-    OnboardingProfile()
-}
+//#Preview {
+//    OnboardingProfile()
+//}
