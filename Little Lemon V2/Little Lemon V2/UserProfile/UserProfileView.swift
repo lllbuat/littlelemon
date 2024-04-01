@@ -11,24 +11,26 @@ import PhotosUI
 struct UserProfileView: View {
     @Binding var path: NavigationPath
     
+    @ObservedObject var memberProfile: MemberProfileModel
+    
     @State private var isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
     
-    @State private var firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
-    @State private var lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
-    @State private var email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
-    @State private var phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
-    
-    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+//    @State private var firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
+//    @State private var lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
+//    @State private var email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
+//    @State private var phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
+//    
+//    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+//    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+//    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+//    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
     
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage: Image = Image("profile-image-placeholder")/*Image(systemName: "person")*/
     
-    @State private var fieldAlertText = ""
-    @State private var showFieldAlert = false
-    @State private var showDisgardConfirmAlert = false    
+    @State private var alertText = ""
+    @State private var showAlert = false
+    @State private var showDisgardConfirmAlert = false
     
     var body: some View {
         VStack {
@@ -67,18 +69,18 @@ struct UserProfileView: View {
                 VStack (spacing: 5) {
                     SectionTitleView(title: "Profile")
                     
-                    NamedTextField(text: $firstName, title: "First Name")
-                    NamedTextField(text: $lastName, title: "Last Name")
-                    NamedTextField(text: $email, title: "Email")
+                    NamedTextField(text: $memberProfile.firstName, title: "First Name")
+                    NamedTextField(text: $memberProfile.lastName, title: "Last Name")
+                    NamedTextField(text: $memberProfile.email, title: "Email")
                         .textInputAutocapitalization(.never)
-                    NamedTextField(text: $phoneNumber, title: "Phone Number")
+                    NamedTextField(text: $memberProfile.phoneNumber, title: "Phone Number")
                     
                     SectionTitleView(title: "Email Notifications")
                     Group {
-                        Toggle("Order status", isOn: $emailOptionOrderStatus)
-                        Toggle("Password changes", isOn: $emailOptionPasswordChanges)
-                        Toggle("Special offers", isOn: $emailOptionSpecialOffer)
-                        Toggle("Newsletter", isOn: $emailOptionNewsletter)
+                        Toggle("Order status", isOn: $memberProfile.emailOptionOrderStatus)
+                        Toggle("Password changes", isOn: $memberProfile.emailOptionPasswordChanges)
+                        Toggle("Special offers", isOn: $memberProfile.emailOptionSpecialOffer)
+                        Toggle("Newsletter", isOn: $memberProfile.emailOptionNewsletter)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .toggleStyle(CheckboxStyle())
@@ -90,17 +92,7 @@ struct UserProfileView: View {
             
             Button {
                 // reset all user default values
-                UserDefaults.standard.set("", forKey: UserDefaultsKeys.kFirstName)
-                UserDefaults.standard.set("", forKey: UserDefaultsKeys.kLastName)
-                UserDefaults.standard.set("", forKey: UserDefaultsKeys.kEmail)
-                UserDefaults.standard.set("", forKey: UserDefaultsKeys.kPhoneNumebr)
-                
-                UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-                UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-                UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-                UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-                
-                UserDefaults.standard.set(false, forKey: UserDefaultsKeys.kIsLoggedIn)
+                self.memberProfile.clearProfile()
                 
                 path.removeLast(path.count)
             } label: {
@@ -136,100 +128,34 @@ struct UserProfileView: View {
                 }
                 
                 Button {
-                    self.validateForm()
+                    let (isValid, errorMsg) = self.memberProfile.validateText()
+                    if !isValid {
+                        // show error msg
+                        self.alertText = errorMsg
+                        self.showAlert = true
+                    } else {
+                        // save profile
+                        self.memberProfile.saveProfile()
+                        
+                        // show saved msg
+                        self.alertText = "Profile saved!"
+                        self.showAlert = true
+                    }
                 } label: {
                     Text("Save changes")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(DarkButton())
-                .alert(fieldAlertText, isPresented: $showFieldAlert) {
+                .alert(self.alertText, isPresented: $showAlert) {
                     Button("OK", role: .cancel) { }
                 }
             }
-
-
         }
         .navigationBarBackButtonHidden()
         .padding(10)
-    }
-    
-    private func validateForm() {
-        
-        // name must contain just letters
-        let firstNameIsValid = isValid(name: self.firstName)
-        let lastNameIsValid = isValid(name: self.lastName)
-        let emailIsValid = isValid(email: self.email)
-        let phoneNumberIsValid = isValid(phone: self.phoneNumber)
-        
-        guard firstNameIsValid && lastNameIsValid && emailIsValid && phoneNumberIsValid
-        else {
-            var invalidFirstNameMessage = ""
-            if !firstNameIsValid {
-                invalidFirstNameMessage = "First name can only contain letters and must have at least 3 characters\n\n"
-            }
-            
-            var invalidLastNameMessage = ""
-            if !lastNameIsValid {
-                invalidLastNameMessage = "Last name can only contain letters and must have at least 3 characters\n\n"
-            }
-            
-            var invalidPhoneMessage = ""
-            if !phoneNumberIsValid {
-                invalidPhoneMessage = "The phone number can only contain numbers and cannot be blank.\n\n"
-            }
-            
-            var invalidEmailMessage = ""
-            if !emailIsValid {
-                invalidEmailMessage = "The e-mail is invalid and cannot be blank."
-            }
-            
-            self.fieldAlertText = "Found these errors in the form:\n\n \(invalidFirstNameMessage)\(invalidLastNameMessage)\(invalidPhoneMessage)\(invalidEmailMessage)"
-            
-            self.showFieldAlert.toggle()
-            return
+        .onAppear {
+            self.memberProfile.loadFromUserDefault()
         }
-        
-        // save to user default
-        UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
-        UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
-        UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
-        UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
-        
-        UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-        UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-        UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-        UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-        
-        self.isLoggedIn = true
-        UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
-        
-        self.fieldAlertText = "Profile Saved!"
-        self.showFieldAlert.toggle()
-    }
-    
-    private func isValid(name: String) -> Bool {
-        guard !name.isEmpty, name.count > 2
-        else { return false }
-        for chr in name {
-            if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") && !(chr == " ") ) {
-                return false
-            }
-        }
-        return true
-    }
-    
-    private func isValid(email:String) -> Bool {
-        guard !email.isEmpty else { return false }
-        let emailValidationRegex = "^[\\p{L}0-9!#$%&'*+\\/=?^_`{|}~-][\\p{L}0-9.!#$%&'*+\\/=?^_`{|}~-]{0,63}@[\\p{L}0-9-]+(?:\\.[\\p{L}0-9-]{2,7})*$"
-        let emailValidationPredicate = NSPredicate(format: "SELF MATCHES %@", emailValidationRegex)
-        return emailValidationPredicate.evaluate(with: email)
-    }
-        
-    private func isValid(phone:String) -> Bool {
-        guard !phoneNumber.isEmpty else { return false }
-        let phoneValidationRegex = "^[0-9]+$"
-        let phoneValidationPredicate = NSPredicate(format: "SELF MATCHES %@", phoneValidationRegex)
-        return phoneValidationPredicate.evaluate(with: phoneNumber)
     }
 }
 

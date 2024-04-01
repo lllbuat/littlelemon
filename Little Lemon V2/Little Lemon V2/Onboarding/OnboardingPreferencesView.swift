@@ -11,13 +11,9 @@ struct OnboardingPreferencesView: View {
     static let tag = ViewTags.OnboardingPreferencesView
     @Binding var path: NavigationPath
         
-    @State private var emailOptionOrderStatus = false
-    @State private var emailOptionPasswordChanges = false
-    @State private var emailOptionSpecialOffer = false
-    @State private var emailOptionNewsletter = false
+    @ObservedObject var memberProfile: MemberProfileModel
     
     var body: some View {
-//        let _ = print("OnboardingPreferences")
         VStack {
             NavBarView(path: $path, showBackBtn: false, showProfileBtn: false)
             
@@ -33,10 +29,10 @@ struct OnboardingPreferencesView: View {
                             .foregroundStyle(Colors.DarkGray)
                         
                         Group {
-                            Toggle("Order status", isOn: $emailOptionOrderStatus)
-                            Toggle("Password changes", isOn: $emailOptionPasswordChanges)
-                            Toggle("Special offers", isOn: $emailOptionSpecialOffer)
-                            Toggle("Newsletter", isOn: $emailOptionNewsletter)
+                            Toggle("Order status", isOn: $memberProfile.emailOptionOrderStatus)
+                            Toggle("Password changes", isOn: $memberProfile.emailOptionPasswordChanges)
+                            Toggle("Special offers", isOn: $memberProfile.emailOptionSpecialOffer)
+                            Toggle("Newsletter", isOn: $memberProfile.emailOptionNewsletter)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .toggleStyle(CheckboxStyle())
@@ -54,10 +50,8 @@ struct OnboardingPreferencesView: View {
                     }.buttonStyle(LightButton())
                     
                     Button {
-                        UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-                        UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-                        UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-                        UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+                        // save profile
+                        self.memberProfile.saveProfile()
                         
                         path.append(ViewTags.OnboardingReviewView)
                     } label: {

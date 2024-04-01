@@ -11,17 +11,7 @@ struct OnboardingReviewView: View {
     static let tag = ViewTags.OnboardingReviewView
     @Binding var path: NavigationPath
     
-    @State private var isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
-    
-    @State private var firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
-    @State private var lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
-    @State private var email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
-    @State private var phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
-    
-    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+    @ObservedObject var memberProfile: MemberProfileModel
     
     var body: some View {
         VStack {
@@ -43,10 +33,10 @@ struct OnboardingReviewView: View {
                             .font(Font(Fonts.CardTitle))
                             .foregroundStyle(Colors.DarkGray)
                         
-                        NamedText(text: firstName, title: "First Name")
-                        NamedText(text: lastName, title: "Last Name")
-                        NamedText(text: email, title: "Email")
-                        NamedText(text: phoneNumber, title: "Phone Number")
+                        NamedText(text: memberProfile.firstName, title: "First Name")
+                        NamedText(text: memberProfile.lastName, title: "Last Name")
+                        NamedText(text: memberProfile.email, title: "Email")
+                        NamedText(text: memberProfile.phoneNumber, title: "Phone Number")
                         
                         Text("Email Notifications")
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,10 +44,10 @@ struct OnboardingReviewView: View {
                             .foregroundStyle(Colors.DarkGray)
                         
                         Group {
-                            Toggle("Order status", isOn: $emailOptionOrderStatus)
-                            Toggle("Password changes", isOn: $emailOptionPasswordChanges)
-                            Toggle("Special offers", isOn: $emailOptionSpecialOffer)
-                            Toggle("Newsletter", isOn: $emailOptionNewsletter)
+                            Toggle("Order status", isOn: $memberProfile.emailOptionOrderStatus)
+                            Toggle("Password changes", isOn: $memberProfile.emailOptionPasswordChanges)
+                            Toggle("Special offers", isOn: $memberProfile.emailOptionSpecialOffer)
+                            Toggle("Newsletter", isOn: $memberProfile.emailOptionNewsletter)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .toggleStyle(CheckboxStyle())
@@ -78,30 +68,13 @@ struct OnboardingReviewView: View {
                     
                     
                     Button {
-                        UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
-                        UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
-                        UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
-                        UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
-                        
-                        UserDefaults.standard.set(emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-                        UserDefaults.standard.set(emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-                        UserDefaults.standard.set(emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-                        UserDefaults.standard.set(emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-                        
-                        self.isLoggedIn = true
-                        UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
+                        self.memberProfile.completedProfile()
                         
                         path.append(ViewTags.MenuView)
                     } label: {
                         Text("Register")
                             .frame(maxWidth: .infinity)
                     }.buttonStyle(DarkButton())
-                    
-//                        NavigationLink(destination: Menu()
-//                            .environment(\.managedObjectContext, persistence.container.viewContext)) {
-//                            Text("Register")
-//                                .frame(maxWidth: .infinity)
-//                        }.buttonStyle(DarkButton())
                 }
             }
             .padding(10)

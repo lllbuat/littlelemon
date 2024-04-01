@@ -8,22 +8,18 @@
 import SwiftUI
 
 struct OnboardingProfileView: View {
+    // for navigation
     static let tag = ViewTags.OnboardingProfileView
     @State var path: NavigationPath = .init()
     
+    // for member profile
+    @StateObject var memberProfile = MemberProfileModel()
+        
+    // for alert box
     @State private var showAlert = false
-//    @State private var goToPreference = false
-    @State private var isLoggedIn = false
-    
-    @State private var firstName = ""
-    @State private var lastName = ""
-    @State private var email = ""
-    @State private var phoneNumber = ""
-    
-    @State var clearFields = false
+    @State private var alertMsg = ""
     
     var body: some View {
-//        let _ = print("OnboardingProfile")
         NavigationStack(path: $path) {
             VStack {
                 NavBarView(path: $path, showBackBtn: false, showProfileBtn: false)
@@ -44,25 +40,30 @@ struct OnboardingProfileView: View {
                                 .font(Font(Fonts.CardTitle))
                                 .foregroundStyle(Colors.DarkGray)
                             
-                            NamedTextField(text: $firstName, title: "First Name")
-                            NamedTextField(text: $lastName, title: "Last Name")
-                            NamedTextField(text: $email, title: "Email")
+                            NamedTextField(text: $memberProfile.firstName, title: "First Name")
+                                .autocorrectionDisabled()
+                            NamedTextField(text:  $memberProfile.lastName, title: "Last Name")
+                                .autocorrectionDisabled()
+                            NamedTextField(text:  $memberProfile.email, title: "Email")
                                 .textInputAutocapitalization(.never)
-                            NamedTextField(text: $phoneNumber, title: "Phone Number")
+                                .autocorrectionDisabled()
+                            NamedTextField(text:  $memberProfile.phoneNumber, title: "Phone Number")
                         }
                         
                     }
-
                     
                     Button {
-                        if (firstName.isEmpty) || (lastName.isEmpty) || (email.isEmpty) || (phoneNumber.isEmpty) {
+                        let (isValid, errorMsg) = memberProfile.validateText()
+                        
+                        if !isValid {
+                            // show error message
+                            self.alertMsg = errorMsg
                             self.showAlert = true
                         } else {
-                            UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
-                            UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
-                            UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
-                            UserDefaults.standard.set(phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
+                            // save to profile
+                            self.memberProfile.saveProfile()
                             
+                            // go to next page
                             path.append(OnboardingPreferencesView.tag)
                         }
                     } label: {
@@ -71,7 +72,9 @@ struct OnboardingProfileView: View {
                     }.buttonStyle(LightButton())
                     
                 }
-//                .background(Color.gray)
+                .alert(alertMsg, isPresented: $showAlert) {
+                    Button("OK", role: .cancel) { }
+                }
                 .padding(10)
                 .navigationBarHidden(true)
             }
@@ -81,34 +84,22 @@ struct OnboardingProfileView: View {
                 } else if tag == ViewTags.OnboardingProfileView {
                     OnboardingProfileView()
                 } else if tag == ViewTags.OnboardingPreferencesView {
-                    OnboardingPreferencesView(path: $path)
+                    OnboardingPreferencesView(path: $path, memberProfile: memberProfile)
                 } else if tag == ViewTags.OnboardingReviewView {
-                    OnboardingReviewView(path: $path)
+                    OnboardingReviewView(path: $path, memberProfile: memberProfile)
                 } else if tag == ViewTags.UserProfileView {
-                    UserProfileView(path: $path)
+                    UserProfileView(path: $path, memberProfile: memberProfile)
                 } else {
                     SampleView(path: $path)
                 }
             }
             
             .onAppear {
-                self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
-                if self.isLoggedIn {
+                // if logged in, move to menu
+                if self.memberProfile.isLoggedIn {
                     path.append(MenuView.tag)
-                } else if self.clearFields {
-                    // reset all fields
-                    firstName = ""
-                    lastName = ""
-                    email = ""
-                    phoneNumber = ""
-                    
-                    self.clearFields = false
                 }
             }
-        }
-        .alert("Empty First Name/Last Name/Email/Phone Number",
-               isPresented: $showAlert) {
-            Button("OK", role: .cancel) { }
         }
     }
 }
