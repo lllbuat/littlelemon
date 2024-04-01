@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchBar: View {
+struct SearchBarView: View {
     @Binding var searchText: String
         
     private let fontToUse: UIFont
@@ -36,5 +36,5 @@ struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar(fontToUse: Fonts.CardTitle, searchText: .constant("hello"))
+    SearchBarView(fontToUse: Fonts.CardTitle, searchText: .constant("hello"))
 }

@@ -54,7 +54,7 @@ struct MenuView: View {
                 }
                 .offset(y: -20)
                 
-                SearchBar(fontToUse: Fonts.CardTitle, searchText: $searchText)
+                SearchBarView(fontToUse: Fonts.CardTitle, searchText: $searchText)
                     .padding([.top], 10)
                     .offset(y: -20)
             }
@@ -102,11 +102,8 @@ struct MenuView: View {
             }
             .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
         }
-        .onAppear {
-            let _ = print("on appear")
-        }
         .task {
-            let _ = print("task run")
+//            let _ = print("task run")
             await dishesModel.reload(viewContext)
         }
         .navigationBarBackButtonHidden(true)
