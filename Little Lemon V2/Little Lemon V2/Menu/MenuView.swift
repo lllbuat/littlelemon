@@ -18,10 +18,14 @@ struct MenuView: View {
     @State var searchText = ""
     @State var selectedCategory = ""
     
+//    @FetchRequest(sortDescriptors: []) private var todos: FetchedResults<Dish>
+    
     var ls_menuCategories = ["Starters", "Mains", "Desserts", "Drinks"]
     
     var body: some View {
         VStack {
+//            Text(dishesModel.debugMsg)
+            
             NavBarView(path: $path, showBackBtn: false)
             
             VStack(spacing: 0) {
@@ -93,6 +97,7 @@ struct MenuView: View {
                         List {
                             // Code for the list enumeration here
                             ForEach(dishes, id: \.self) { dish in
+//                                let _ = print("ForEach ", dish.title ?? "")
                                 MenuItemView(dish)
                             }
                         }
@@ -102,9 +107,11 @@ struct MenuView: View {
             }
             .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
         }
+//        .onAppear() {
+//            let _ = print(String(Dish.countRecords(viewContext)))
+//        }
         .task {
-//            let _ = print("task run")
-            await dishesModel.reload(viewContext)
+            await dishesModel.fetchData(viewContext)
         }
         .navigationBarBackButtonHidden(true)
     }

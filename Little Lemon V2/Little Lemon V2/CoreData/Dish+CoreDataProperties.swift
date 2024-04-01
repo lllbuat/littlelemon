@@ -25,17 +25,15 @@ extension Dish {
 
 }
 
-extension Dish : Identifiable {
+extension Dish: Identifiable {
     
     static func createDishesFrom(menuItems:[MenuItem],
                                  _ context:NSManagedObjectContext) {
-        print("# Dishes ", Dish.countRecords(context))
         
         for item in menuItems {
             let dishExist = exist(title: item.title, context) ?? false
 
             if !dishExist {
-//                print("\(item.title) no dish")
                 let dish = Dish(context: context)
                 dish.title = item.title
                 dish.price = item.price
@@ -48,7 +46,6 @@ extension Dish : Identifiable {
 
         guard context.hasChanges else { return }
         Dish.save(context)
-//        print("End createDishesFrom")
     }
     
     static func exist(title: String, _ context: NSManagedObjectContext) -> Bool? {
@@ -89,55 +86,55 @@ extension Dish : Identifiable {
         request.returnsObjectsAsFaults = true
         return request
     }
-    
-    
-    static func with(name: String,
-                     _ context:NSManagedObjectContext) -> Dish? {
-        let request = Dish.request()
-        
-        let predicate = NSPredicate(format: "name == %@", name)
-        request.predicate = predicate
-        
-        let sortDescriptor = NSSortDescriptor(key: "name",
-                                              ascending: false,
-                                              selector: #selector(NSString.localizedStandardCompare))
-        request.sortDescriptors = [sortDescriptor]
-        
-        do {
-            guard let results = try context.fetch(request) as? [Dish],
-                  results.count == 1,
-                  let dish = results.first
-            else { return Dish(context: context) }
-            return dish
-        } catch (let error){
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-    
-    static func delete(with name: String,
-                       _ context:NSManagedObjectContext) -> Bool {
-        let request = Dish.request()
-        
-        let predicate = NSPredicate(format: "name == %@", name)
-        request.predicate = predicate
-        
-        do {
-            guard let results = try context.fetch(request) as? [Dish],
-                  results.count == 1,
-                  let dish = results.first
-            else {
-                return false
-            }
-            context.delete(dish)
-            return true
-        } catch (let error){
-            print(error.localizedDescription)
-            return false
-        }
-    }
-    
-    
+//    
+//    
+//    static func with(name: String,
+//                     _ context:NSManagedObjectContext) -> Dish? {
+//        let request = Dish.request()
+//        
+//        let predicate = NSPredicate(format: "name == %@", name)
+//        request.predicate = predicate
+//        
+//        let sortDescriptor = NSSortDescriptor(key: "name",
+//                                              ascending: false,
+//                                              selector: #selector(NSString.localizedStandardCompare))
+//        request.sortDescriptors = [sortDescriptor]
+//        
+//        do {
+//            guard let results = try context.fetch(request) as? [Dish],
+//                  results.count == 1,
+//                  let dish = results.first
+//            else { return Dish(context: context) }
+//            return dish
+//        } catch (let error){
+//            print(error.localizedDescription)
+//            return nil
+//        }
+//    }
+//    
+//    static func delete(with name: String,
+//                       _ context:NSManagedObjectContext) -> Bool {
+//        let request = Dish.request()
+//        
+//        let predicate = NSPredicate(format: "name == %@", name)
+//        request.predicate = predicate
+//        
+//        do {
+//            guard let results = try context.fetch(request) as? [Dish],
+//                  results.count == 1,
+//                  let dish = results.first
+//            else {
+//                return false
+//            }
+//            context.delete(dish)
+//            return true
+//        } catch (let error){
+//            print(error.localizedDescription)
+//            return false
+//        }
+//    }
+//    
+//    
     class func deleteAll(_ context:NSManagedObjectContext) {
         let request = Dish.request()
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
@@ -151,28 +148,28 @@ extension Dish : Identifiable {
             print(error.localizedDescription)
         }
     }
-    
-    
-    static func exists(name: String,
-                       _ context:NSManagedObjectContext) -> Bool? {
-        let request = Dish.request()
-        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
-        request.predicate = predicate
-        
-        do {
-            guard let results = try context.fetch(request) as? [Dish]
-            else {
-                return nil
-            }
-            return results.count > 0
-        } catch (let error){
-            print(error.localizedDescription)
-            return false
-        }
-    }
-
-
-    
+//    
+//    
+//    static func exists(name: String,
+//                       _ context:NSManagedObjectContext) -> Bool? {
+//        let request = Dish.request()
+//        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
+//        request.predicate = predicate
+//        
+//        do {
+//            guard let results = try context.fetch(request) as? [Dish]
+//            else {
+//                return nil
+//            }
+//            return results.count > 0
+//        } catch (let error){
+//            print(error.localizedDescription)
+//            return false
+//        }
+//    }
+//
+//
+//    
     static func save(_ context:NSManagedObjectContext) {
         guard context.hasChanges else { return }
         do {
@@ -181,20 +178,20 @@ extension Dish : Identifiable {
             print("Unresolved error \(error), \(error.userInfo)")
         }
     }
-    
-    
-    class func readAll(_ context:NSManagedObjectContext) -> [Dish]? {
-        let request = Dish.request()
+//    
+//    
+//    class func readAll(_ context:NSManagedObjectContext) -> [Dish]? {
+//        let request = Dish.request()
 //        request.returnsDistinctResults = true
-        do {
-            guard let results = try context.fetch(request) as? [Dish],
-                  results.count > 0 else { return nil }
-            return results
-        } catch (let error){
-            print(error.localizedDescription)
-            return nil
-        }
-    }
+//        do {
+//            guard let results = try context.fetch(request) as? [Dish],
+//                  results.count > 0 else { return nil }
+//            return results
+//        } catch (let error){
+//            print(error.localizedDescription)
+//            return nil
+//        }
+//    }
     
 }
 
