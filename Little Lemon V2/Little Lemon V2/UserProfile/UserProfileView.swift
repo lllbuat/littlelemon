@@ -16,11 +16,18 @@ struct UserProfileView: View {
     @State private var alertText = ""
     @State private var showAlert = false
     @State private var showDisgardConfirmAlert = false
+    @State private var disgardConfirmText = ""
     
     var body: some View {
         VStack {
             NavBarView(path: $path, memberProfile: memberProfile, showProfileBtn: false, backBtnHandler: {
-                self.showDisgardConfirmAlert = true
+                // show alert and move to home
+                if self.memberProfile.hasProfileBeenEdited() {
+                    self.disgardConfirmText = "Unsaved changes. Confirm to disgard?"
+                    self.showDisgardConfirmAlert = true
+                } else {
+                    path.removeLast()
+                }
             })
             
             SectionTitleView(title: "Personal Information")
@@ -93,6 +100,7 @@ struct UserProfileView: View {
                 Button {
                     // show alert and move to home
                     self.showDisgardConfirmAlert = true
+                    self.disgardConfirmText = "Confirm to disgard?"
                 } label: {
                     Text("Disgard changes")
                         .frame(maxWidth: .infinity)
@@ -100,7 +108,7 @@ struct UserProfileView: View {
                 .buttonStyle(LightButton())
                 .alert(isPresented: $showDisgardConfirmAlert) {
                     Alert(
-                        title: Text("Confirm to disgard?"),
+                        title: Text(self.disgardConfirmText),
                         message: Text("Changes to profile will not be saved."),
                         primaryButton: .default(
                             Text("Cancel"),
@@ -109,8 +117,7 @@ struct UserProfileView: View {
                         secondaryButton: .destructive(
                             Text("Confirm"),
                             action: {
-                                self.memberProfile.loadFromUserDefault()
-                                self.memberProfile.loadProfileImage()
+                                self.memberProfile.loadProfile()
                                 path.removeLast()
                             }
                         )
@@ -144,8 +151,7 @@ struct UserProfileView: View {
         .navigationBarBackButtonHidden()
         .padding(10)
         .onAppear {
-            self.memberProfile.loadFromUserDefault()
-            self.memberProfile.loadProfileImage()
+            self.memberProfile.loadProfile()
         }
     }
 }

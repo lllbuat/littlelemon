@@ -22,7 +22,7 @@ class MemberProfileModel: ObservableObject {
     @Published var emailOptionSpecialOffer:Bool = false
     @Published var emailOptionNewsletter:Bool = false
     
-    @Published var isLoggedIn: Bool = false
+    @Published private(set) var isLoggedIn: Bool = false
     
     enum ImageState {
         case empty
@@ -47,11 +47,16 @@ class MemberProfileModel: ObservableObject {
     }
     
     private var fileManager: FileManager = FileManager()
-    private var bChanged: Bool = false
+    private var bProfileImageEdited: Bool = false
     
     init() {
+        self.loadProfile()
+    }
+    
+    public func loadProfile() {
         self.loadFromUserDefault()
         self.loadProfileImage()
+        self.bProfileImageEdited = false
     }
     
     public func saveProfile() {
@@ -95,7 +100,7 @@ class MemberProfileModel: ObservableObject {
         self.saveProfile()
     }
     
-    public func loadFromUserDefault() {
+    private func loadFromUserDefault() {
         self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
         
         if self.isLoggedIn {
@@ -109,6 +114,31 @@ class MemberProfileModel: ObservableObject {
             self.emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
             self.emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
         } 
+    }
+    
+    public func hasProfileBeenEdited() -> Bool {
+        let firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
+        let lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
+        let email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
+        let phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
+        
+        let emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+        let emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+        let emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+        let emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+        
+        guard firstName == self.firstName,
+              lastName == self.lastName,
+              email == self.email,
+              phoneNumber == self.phoneNumber,
+              emailOptionOrderStatus == self.emailOptionOrderStatus,
+              emailOptionPasswordChanges == self.emailOptionPasswordChanges,
+              emailOptionSpecialOffer == self.emailOptionSpecialOffer,
+              emailOptionNewsletter == self.emailOptionNewsletter,
+              !bProfileImageEdited else {
+            return true
+        }
+        return false
     }
         
     // handle profile image
@@ -140,9 +170,11 @@ class MemberProfileModel: ObservableObject {
             self.imageStateEdit = .empty
             break
         }
+        self.bProfileImageEdited = false
     }
     
-    public func loadProfileImage() {
+    private func loadProfileImage() {
+        self.fileManager.deleteImage(fileName: "temp")
         guard let uiImage = self.fileManager.retrieveImage(fileName: "profile") else {
             self.imageState = .empty
             self.imageStateEdit = .empty
@@ -155,6 +187,7 @@ class MemberProfileModel: ObservableObject {
     
     public func removeProfileImageFromEdit() {
         self.imageStateEdit = .empty
+        self.bProfileImageEdited = true
     }
     
     private func loadPhotoPickerImage(imageSelection: PhotosPickerItem, fileName: String) -> Progress {
@@ -170,6 +203,7 @@ class MemberProfileModel: ObservableObject {
                         let profileImage = Image(uiImage: uiImage)
                         self.fileManager.saveImage(fileName: fileName, image: uiImage)
                         self.imageStateEdit = .success(profileImage)
+                        self.bProfileImageEdited = true
                     } else {
                         self.imageStateEdit = .empty
                     }
