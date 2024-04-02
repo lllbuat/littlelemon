@@ -15,7 +15,7 @@ struct OnboardingPreferencesView: View {
     
     var body: some View {
         VStack {
-            NavBarView(path: $path, showBackBtn: false, showProfileBtn: false)
+            NavBarView(path: $path, memberProfile: memberProfile, showBackBtn: false, showProfileBtn: false)
             
             HeroSectionView()
                 .frame(height: 300)

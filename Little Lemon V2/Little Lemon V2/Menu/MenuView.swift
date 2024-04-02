@@ -12,6 +12,7 @@ struct MenuView: View {
     @Binding var path: NavigationPath
                 
     @ObservedObject var dishesModel = DishesModel()
+    @ObservedObject var memberProfile: MemberProfileModel
     
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -26,7 +27,7 @@ struct MenuView: View {
         VStack {
 //            Text(dishesModel.debugMsg)
             
-            NavBarView(path: $path, showBackBtn: false)
+            NavBarView(path: $path, memberProfile: memberProfile, showBackBtn: false)
             
             VStack(spacing: 0) {
                 VStack {

@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
+import PhotosUI
 
+@MainActor
 class MemberProfileModel: ObservableObject {
     
     @Published var firstName: String = ""
@@ -21,11 +24,168 @@ class MemberProfileModel: ObservableObject {
     
     @Published var isLoggedIn: Bool = false
     
-    init() {
-        self.loadFromUserDefault()
+    enum ImageState {
+        case empty
+        case loading(Progress)
+        case success(Image)
+        case failure(Error)
     }
     
-    public func validateText() -> (Bool, String){
+    @Published private(set) var imageState: ImageState = .empty
+    @Published private(set) var imageStateEdit: ImageState = .empty
+    
+    @Published var imageSelection: PhotosPickerItem? = nil {
+        didSet {
+            if let imageSelection {
+                // load to temp first
+                let progress = loadPhotoPickerImage(imageSelection: imageSelection, fileName: "temp")
+                self.imageStateEdit = .loading(progress)
+            } else {
+                self.imageStateEdit = .empty
+            }
+        }
+    }
+    
+    private var fileManager: FileManager = FileManager()
+    private var bChanged: Bool = false
+    
+    init() {
+        self.loadFromUserDefault()
+        self.loadProfileImage()
+    }
+    
+    public func saveProfile() {
+        UserDefaults.standard.set(self.firstName, forKey: UserDefaultsKeys.kFirstName)
+        UserDefaults.standard.set(self.lastName, forKey: UserDefaultsKeys.kLastName)
+        UserDefaults.standard.set(self.email, forKey: UserDefaultsKeys.kEmail)
+        UserDefaults.standard.set(self.phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
+        
+        UserDefaults.standard.set(self.emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+        UserDefaults.standard.set(self.emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+        UserDefaults.standard.set(self.emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+        UserDefaults.standard.set(self.emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+        
+        UserDefaults.standard.set(self.isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
+        
+        // save profile image from edit
+        self.saveProfileImage()
+    }
+    
+    public func completedProfile() {
+        self.isLoggedIn = true
+        self.saveProfile()
+    }
+    
+    public func clearProfile() {
+        self.firstName = ""
+        self.lastName = ""
+        self.email = ""
+        self.phoneNumber = ""
+        
+        self.emailOptionOrderStatus = false
+        self.emailOptionPasswordChanges = false
+        self.emailOptionSpecialOffer = false
+        self.emailOptionNewsletter = false
+        
+        self.isLoggedIn = false
+        
+        self.imageStateEdit = .empty
+        self.imageState = .empty
+        
+        self.saveProfile()
+    }
+    
+    public func loadFromUserDefault() {
+        self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
+        
+        if self.isLoggedIn {
+            self.firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
+            self.lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
+            self.email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
+            self.phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
+            
+            self.emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
+            self.emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
+            self.emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
+            self.emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
+        } 
+    }
+        
+    // handle profile image
+    public func saveProfileImage() {
+        switch self.imageStateEdit {
+        case .empty:
+            // profile already removed
+            self.fileManager.deleteImage(fileName: "profile")
+            self.fileManager.deleteImage(fileName: "temp")
+            self.imageState = .empty
+            break
+        case .success:
+            // if selected
+            if let uiImage = self.fileManager.retrieveImage(fileName: "temp") {
+                self.fileManager.saveImage(fileName: "profile", image: uiImage)
+                
+                // load to imageState
+                self.imageState = .success(Image(uiImage: uiImage))
+                self.imageStateEdit = .success(Image(uiImage: uiImage))
+                
+                self.fileManager.deleteImage(fileName: "temp")
+            }
+        default:
+            // unknown reason
+            self.fileManager.deleteImage(fileName: "temp")
+            self.fileManager.deleteImage(fileName: "profile")
+            
+            self.imageState = .empty
+            self.imageStateEdit = .empty
+            break
+        }
+    }
+    
+    public func loadProfileImage() {
+        guard let uiImage = self.fileManager.retrieveImage(fileName: "profile") else {
+            self.imageState = .empty
+            self.imageStateEdit = .empty
+            return
+        }
+        let profileImage = Image(uiImage: uiImage)
+        self.imageState = .success(profileImage)
+        self.imageStateEdit = .success(profileImage)
+    }
+    
+    public func removeProfileImageFromEdit() {
+        self.imageStateEdit = .empty
+    }
+    
+    private func loadPhotoPickerImage(imageSelection: PhotosPickerItem, fileName: String) -> Progress {
+        imageSelection.loadTransferable(type: Data.self) { result in
+            DispatchQueue.main.async {
+                guard imageSelection == self.imageSelection else {
+                    print("Failed to get the selected item.")
+                    return
+                }
+                switch result {
+                case .success(let loaded?):
+                    if let uiImage = UIImage(data: loaded) {
+                        let profileImage = Image(uiImage: uiImage)
+                        self.fileManager.saveImage(fileName: fileName, image: uiImage)
+                        self.imageStateEdit = .success(profileImage)
+                    } else {
+                        self.imageStateEdit = .empty
+                    }
+                case .success(nil):
+                    self.imageStateEdit = .empty
+                case .failure(let error):
+                    self.imageStateEdit = .failure(error)
+                }
+            }
+        }
+    }
+    
+    
+    // form validation
+    
+    public func validateText() -> (Bool, String) {
         let firstNameIsValid = isValid(name: self.firstName)
         let lastNameIsValid = isValid(name: self.lastName)
         let emailIsValid = isValid(email: self.email)
@@ -59,57 +219,6 @@ class MemberProfileModel: ObservableObject {
         }
         
         return (true, "")
-    }
-    
-    public func saveProfile() {
-        UserDefaults.standard.set(self.firstName, forKey: UserDefaultsKeys.kFirstName)
-        UserDefaults.standard.set(self.lastName, forKey: UserDefaultsKeys.kLastName)
-        UserDefaults.standard.set(self.email, forKey: UserDefaultsKeys.kEmail)
-        UserDefaults.standard.set(self.phoneNumber, forKey: UserDefaultsKeys.kPhoneNumebr)
-        
-        UserDefaults.standard.set(self.emailOptionOrderStatus, forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-        UserDefaults.standard.set(self.emailOptionPasswordChanges, forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-        UserDefaults.standard.set(self.emailOptionSpecialOffer, forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-        UserDefaults.standard.set(self.emailOptionNewsletter, forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-        
-        UserDefaults.standard.set(self.isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
-    }
-    
-    public func completedProfile() {
-        self.isLoggedIn = true
-        self.saveProfile()
-    }
-    
-    public func clearProfile() {
-        self.firstName = ""
-        self.lastName = ""
-        self.email = ""
-        self.phoneNumber = ""
-        
-        self.emailOptionOrderStatus = false
-        self.emailOptionPasswordChanges = false
-        self.emailOptionSpecialOffer = false
-        self.emailOptionNewsletter = false
-        
-        self.isLoggedIn = false
-        
-        self.saveProfile()
-    }
-    
-    public func loadFromUserDefault() {
-        self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
-        
-        if self.isLoggedIn {
-            self.firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
-            self.lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
-            self.email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
-            self.phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
-            
-            self.emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-            self.emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-            self.emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-            self.emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-        } 
     }
     
     private func isValid(name: String) -> Bool {

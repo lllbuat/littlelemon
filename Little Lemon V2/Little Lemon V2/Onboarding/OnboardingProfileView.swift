@@ -22,7 +22,7 @@ struct OnboardingProfileView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
-                NavBarView(path: $path, showBackBtn: false, showProfileBtn: false)
+                NavBarView(path: $path, memberProfile: memberProfile, showBackBtn: false, showProfileBtn: false)
                 
                 HeroSectionView()
                     .frame(height: 300)
@@ -80,7 +80,7 @@ struct OnboardingProfileView: View {
             }
             .navigationDestination(for: String.self) { tag in
                 if tag == ViewTags.MenuView {
-                    MenuView(path: $path)
+                    MenuView(path: $path, memberProfile: memberProfile)
                 } else if tag == ViewTags.OnboardingProfileView {
                     OnboardingProfileView()
                 } else if tag == ViewTags.OnboardingPreferencesView {
@@ -89,8 +89,6 @@ struct OnboardingProfileView: View {
                     OnboardingReviewView(path: $path, memberProfile: memberProfile)
                 } else if tag == ViewTags.UserProfileView {
                     UserProfileView(path: $path, memberProfile: memberProfile)
-                } else {
-                    SampleView(path: $path)
                 }
             }
             

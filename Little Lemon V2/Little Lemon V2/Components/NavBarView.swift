@@ -11,14 +11,18 @@ struct NavBarView: View {
     static let tag = ViewTags.NavBarView
     @Binding var path: NavigationPath
     
+    @ObservedObject var memberProfile: MemberProfileModel
+    
+    
     @State var showBackBtn: Bool = true
     @State var showProfileBtn: Bool = true
+    var backBtnHandler: () -> Void = {}
     
     var body: some View {
         HStack(alignment: .center) {
             
             Button {
-                path.removeLast()
+                self.backBtnHandler()
             } label: {
                 Image(systemName: "arrow.left.circle.fill")
                     .resizable()
@@ -28,7 +32,6 @@ struct NavBarView: View {
             }
             .opacity(self.showBackBtn ? 1 : 0)
             .disabled(self.showBackBtn ? false : true)
-            
             
             Spacer()
             
@@ -42,14 +45,12 @@ struct NavBarView: View {
             Button {
                 path.append(ViewTags.UserProfileView)
             } label: {
-                Image("profile-image-placeholder")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 50, alignment: .center)
+                CircularUserProfileImageView(imageState: memberProfile.imageState, size: CGFloat(50))
             }
             .opacity(self.showProfileBtn ? 1 : 0)
             .disabled(self.showProfileBtn ? false : true)
         }
+        .padding([.horizontal], 10)
     }
 }
 

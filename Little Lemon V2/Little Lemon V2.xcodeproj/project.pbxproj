@@ -44,6 +44,8 @@
 		AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */; };
 		AEC2CF492BB532CD0034C5AE /* TempSample2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC2CF482BB532CD0034C5AE /* TempSample2.swift */; };
 		AED099942BAD607C00B86AD8 /* CustomStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED099932BAD607C00B86AD8 /* CustomStyles.swift */; };
+		AED9A13B2BBB9E8E00883219 /* FileManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9A13A2BBB9E8E00883219 /* FileManagerExtension.swift */; };
+		AED9A13D2BBBA33500883219 /* UserProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED9A13C2BBBA33500883219 /* UserProfileImageView.swift */; };
 		AEF419762BAD2F1500308DE4 /* OnboardingPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF419752BAD2F1500308DE4 /* OnboardingPreferencesView.swift */; };
 		AEFAB6552BABD16200653750 /* MenuCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */; };
 		AEFAB6572BABDB1B00653750 /* OnboardingProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFAB6562BABDB1B00653750 /* OnboardingProfileView.swift */; };
@@ -90,6 +92,8 @@
 		AEA8D24A2BA1474F00BDCBF7 /* TempSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempSample.swift; sourceTree = "<group>"; };
 		AEC2CF482BB532CD0034C5AE /* TempSample2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempSample2.swift; sourceTree = "<group>"; };
 		AED099932BAD607C00B86AD8 /* CustomStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyles.swift; sourceTree = "<group>"; };
+		AED9A13A2BBB9E8E00883219 /* FileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtension.swift; sourceTree = "<group>"; };
+		AED9A13C2BBBA33500883219 /* UserProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileImageView.swift; sourceTree = "<group>"; };
 		AEF419752BAD2F1500308DE4 /* OnboardingPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPreferencesView.swift; sourceTree = "<group>"; };
 		AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategoryButton.swift; sourceTree = "<group>"; };
 		AEFAB6562BABDB1B00653750 /* OnboardingProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingProfileView.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				AE7322152B91B923005B665B /* ContentView.swift */,
 				AE7322172B91B925005B665B /* Assets.xcassets */,
 				AE7322192B91B925005B665B /* Preview Content */,
+				AED9A13A2BBB9E8E00883219 /* FileManagerExtension.swift */,
 			);
 			path = "Little Lemon V2";
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				AE2EF8242B95975700663F18 /* UserProfileView.swift */,
+				AED9A13C2BBBA33500883219 /* UserProfileImageView.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -356,6 +362,7 @@
 				AE4C89512BB14B880069E4A6 /* NavBarView.swift in Sources */,
 				AEFAB6572BABDB1B00653750 /* OnboardingProfileView.swift in Sources */,
 				AE7322142B91B923005B665B /* Little_Lemon_V2App.swift in Sources */,
+				AED9A13D2BBBA33500883219 /* UserProfileImageView.swift in Sources */,
 				AE80BA542BA4F5D8004CD953 /* Dish+CoreDataProperties.swift in Sources */,
 				AE73222B2B91BE0D005B665B /* Home.swift in Sources */,
 				AE27C3682BBA632700C2D748 /* ViewTags.swift in Sources */,
@@ -367,6 +374,7 @@
 				AE2EF82B2B95A58E00663F18 /* MenuItemStruct.swift in Sources */,
 				AEA622BD2B95B5FB004BFC8E /* DishExtension.swift in Sources */,
 				AE4EB2962B9FF95200E83EF0 /* UserDefaults.swift in Sources */,
+				AED9A13B2BBB9E8E00883219 /* FileManagerExtension.swift in Sources */,
 				AE08C2D82B9EDA6F00AEA573 /* NavigationBar.swift in Sources */,
 				AE2EF8292B95A58600663F18 /* MenuListStruct.swift in Sources */,
 				AE2EF8272B95A54700663F18 /* FetchedObjects.swift in Sources */,

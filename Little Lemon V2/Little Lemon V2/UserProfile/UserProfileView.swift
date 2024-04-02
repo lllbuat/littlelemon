@@ -13,28 +13,15 @@ struct UserProfileView: View {
     
     @ObservedObject var memberProfile: MemberProfileModel
     
-    @State private var isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
-    
-//    @State private var firstName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kFirstName) ?? ""
-//    @State private var lastName = UserDefaults.standard.string(forKey: UserDefaultsKeys.kLastName) ?? ""
-//    @State private var email = UserDefaults.standard.string(forKey: UserDefaultsKeys.kEmail) ?? ""
-//    @State private var phoneNumber = UserDefaults.standard.string(forKey: UserDefaultsKeys.kPhoneNumebr) ?? ""
-//    
-//    @State private var emailOptionOrderStatus = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionOrderStatus)
-//    @State private var emailOptionPasswordChanges = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionPasswordChanges)
-//    @State private var emailOptionSpecialOffer = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionSpecialOffer)
-//    @State private var emailOptionNewsletter = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kEmailOptionNewsletter)
-    
-    @State private var avatarItem: PhotosPickerItem?
-    @State private var avatarImage: Image = Image("profile-image-placeholder")/*Image(systemName: "person")*/
-    
     @State private var alertText = ""
     @State private var showAlert = false
     @State private var showDisgardConfirmAlert = false
     
     var body: some View {
         VStack {
-            NavBarView(path: $path, showProfileBtn: false)
+            NavBarView(path: $path, memberProfile: memberProfile, showProfileBtn: false, backBtnHandler: {
+                self.showDisgardConfirmAlert = true
+            })
             
             SectionTitleView(title: "Personal Information")
             
@@ -44,23 +31,21 @@ struct UserProfileView: View {
                 .foregroundStyle(Colors.Gray)
             
             HStack {
-                avatarImage
-                    .resizable()
-                    .scaledToFill()
-                    .clipShape(Circle())
-                    .frame(width: 100, height: 100)
-                                    
-                Button {
-                    // change avatar
-                } label: {
+                CircularUserProfileImageView(imageState: memberProfile.imageStateEdit)
+                                
+                PhotosPicker(selection: $memberProfile.imageSelection,
+                             matching: .images,
+                             photoLibrary: .shared()) {
                     Text("Change")
-                }.buttonStyle(DarkButton())
+                }
+                .buttonStyle(LightButton())
+                
                 
                 Button {
-                    // remove avatar
+                    self.memberProfile.removeProfileImageFromEdit()
                 } label: {
                     Text("Remove")
-                }.buttonStyle(LightButton())
+                }.buttonStyle(DarkButton())
                 
                 Spacer()
             }
@@ -70,10 +55,13 @@ struct UserProfileView: View {
                     SectionTitleView(title: "Profile")
                     
                     NamedTextField(text: $memberProfile.firstName, title: "First Name")
+                        .autocorrectionDisabled()
                     NamedTextField(text: $memberProfile.lastName, title: "Last Name")
+                        .autocorrectionDisabled()
                     NamedTextField(text: $memberProfile.email, title: "Email")
                         .textInputAutocapitalization(.never)
                     NamedTextField(text: $memberProfile.phoneNumber, title: "Phone Number")
+                        .autocorrectionDisabled()
                     
                     SectionTitleView(title: "Email Notifications")
                     Group {
@@ -121,6 +109,8 @@ struct UserProfileView: View {
                         secondaryButton: .destructive(
                             Text("Confirm"),
                             action: {
+                                self.memberProfile.loadFromUserDefault()
+                                self.memberProfile.loadProfileImage()
                                 path.removeLast()
                             }
                         )
@@ -155,6 +145,7 @@ struct UserProfileView: View {
         .padding(10)
         .onAppear {
             self.memberProfile.loadFromUserDefault()
+            self.memberProfile.loadProfileImage()
         }
     }
 }
