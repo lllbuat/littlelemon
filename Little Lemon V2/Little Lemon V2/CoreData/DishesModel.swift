@@ -31,7 +31,7 @@ class DishesModel: ObservableObject {
                 //            Dish.deleteAll(coreDataContext)
                 Dish.createDishesFrom(menuItems:menuItems, coreDataContext)
             } catch (let error){
-                print(error.localizedDescription)
+//                print(error.localizedDescription)
             }
             
             return

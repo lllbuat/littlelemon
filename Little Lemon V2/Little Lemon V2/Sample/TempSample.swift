@@ -32,7 +32,7 @@ struct TempSample: View {
                         self.fileManager.saveImage(fileName: "profile", image: uiImage)
                     }
                 } else {
-                    print("Failed")
+//                    print("Failed")
                 }
             }
         }

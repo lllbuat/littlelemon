@@ -60,7 +60,7 @@ extension Dish: Identifiable {
             }
             return results.count > 0
         } catch (let error){
-            print(error.localizedDescription)
+//            print(error.localizedDescription)
             return false
         }
     }
@@ -75,7 +75,7 @@ extension Dish: Identifiable {
             }
             return results.count
         } catch (let error){
-            print(error.localizedDescription)
+//            print(error.localizedDescription)
             return 0
         }
     }

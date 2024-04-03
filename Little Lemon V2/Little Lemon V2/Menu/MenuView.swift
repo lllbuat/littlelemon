@@ -29,42 +29,51 @@ struct MenuView: View {
             
             NavBarView(path: $path, memberProfile: memberProfile, showBackBtn: false)
             
-            VStack(spacing: 0) {
-                VStack {
-                    Text("Little Lemon")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(Font(Fonts.DisplayTitle))
-                        .foregroundStyle(Colors.Yellow)
-                    
-                    Text("Chicago")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(Font(Fonts.Subtitle))
-                        .foregroundStyle(.white)
-                        .offset(y: -20)
-                }
-                
-                HStack {
-                    Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                        .font(Font(Fonts.HighlightText))
-                        .foregroundStyle(.white)
-                    
-                    Image("hero-image")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 120, height: 150, alignment: .center)
-                        .clipped()
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    
-                }
+            HeroSectionView()
+                .frame(maxHeight: 300)
+            
+            SearchBarView(fontToUse: Fonts.CardTitle, searchText: $searchText)
+                .padding(10)
+                .background(Colors.DarkGreen)
                 .offset(y: -20)
-                
-                SearchBarView(fontToUse: Fonts.CardTitle, searchText: $searchText)
-                    .padding([.top], 10)
-                    .offset(y: -20)
-            }
-            .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
-            .background(Colors.DarkGreen)
+            
+            
+//            VStack(spacing: 0) {
+//                VStack {
+//                    Text("Little Lemon")
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .font(Font(Fonts.DisplayTitle))
+//                        .foregroundStyle(Colors.Yellow)
+//                    
+//                    Text("Chicago")
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .font(Font(Fonts.Subtitle))
+//                        .foregroundStyle(.white)
+//                        .offset(y: -20)
+//                }
+//                
+//                HStack {
+//                    Text("We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.")
+//                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+//                        .font(Font(Fonts.HighlightText))
+//                        .foregroundStyle(.white)
+//                    
+//                    Image("hero-image")
+//                        .resizable()
+//                        .scaledToFill()
+//                        .frame(width: 120, height: 150, alignment: .center)
+//                        .clipped()
+//                        .clipShape(RoundedRectangle(cornerRadius: 15))
+//                    
+//                }
+//                .offset(y: -20)
+//                
+//                SearchBarView(fontToUse: Fonts.CardTitle, searchText: $searchText)
+//                    .padding([.top], 10)
+//                    .offset(y: -20)
+//            }
+//            .padding(.init(top: 10, leading: 10, bottom: 0, trailing: 10))
+//            .background(Colors.DarkGreen)
             
             VStack {
                 Text("Order for Delivery!")
@@ -94,6 +103,7 @@ struct MenuView: View {
                         Text("None matches criteria")
                             .font(Font(Fonts.HighlightText))
                             .foregroundStyle(Colors.DarkGray)
+                            .padding(10)
                     } else {
                         List {
                             // Code for the list enumeration here
@@ -107,6 +117,8 @@ struct MenuView: View {
                 }
             }
             .padding(.init(top: 0, leading: 15, bottom: 0, trailing: 15))
+            
+            Spacer()
         }
 //        .onAppear() {
 //            let _ = print(String(Dish.countRecords(viewContext)))

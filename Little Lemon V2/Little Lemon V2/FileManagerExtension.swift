@@ -16,7 +16,7 @@ extension FileManager {
             let imageData = try Data(contentsOf: url)
             return UIImage(data: imageData)
         } catch {
-            print(error.localizedDescription)
+//            print(error.localizedDescription)
             return nil
         }
     }
@@ -28,10 +28,10 @@ extension FileManager {
                 let url = URL.documentsDirectory.appendingPathComponent("\(fileName).jpg")
                 try data.write(to: url)
             } catch {
-                print(error.localizedDescription)
+//                print(error.localizedDescription)
             }
         } else {
-            print("Could not save image.")
+//            print("Could not save image.")
         }
     }
     
@@ -41,10 +41,10 @@ extension FileManager {
             do {
                 try removeItem(at: url)
             } catch  {
-                print(error.localizedDescription )
+//                print(error.localizedDescription )
             }
         } else {
-            print("Image does not exist.")
+//            print("Image does not exist.")
         }
     }
     
