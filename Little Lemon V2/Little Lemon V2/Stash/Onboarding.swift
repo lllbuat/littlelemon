@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-let kFirstName = "key_firstName"
-let kLastName = "key_lastName"
-let kEmail = "key_Email"
-let kIsLoggedIn = "key_IsLoggedIn"
+//let kFirstName = "key_firstName"
+//let kLastName = "key_lastName"
+//let kEmail = "key_Email"
+//let kIsLoggedIn = "key_IsLoggedIn"
 
 struct Onboarding: View {
     @State private var showAlert = false
@@ -23,8 +23,9 @@ struct Onboarding: View {
     var body: some View {
         
         NavigationStack{
-            
             VStack{
+                Image("littleLemon")
+                
                 TextField("First Name",
                           text: $firstName)
                 TextField("Last Name",
@@ -35,11 +36,11 @@ struct Onboarding: View {
                     if (firstName.isEmpty) || (lastName.isEmpty) || (email.isEmpty) {
                         self.showAlert = true
                     } else {
-                        UserDefaults.standard.set(firstName, forKey: kFirstName)
-                        UserDefaults.standard.set(lastName, forKey: kLastName)
-                        UserDefaults.standard.set(email, forKey: kEmail)
+                        UserDefaults.standard.set(firstName, forKey: UserDefaultsKeys.kFirstName)
+                        UserDefaults.standard.set(lastName, forKey: UserDefaultsKeys.kLastName)
+                        UserDefaults.standard.set(email, forKey: UserDefaultsKeys.kEmail)
                         self.isLoggedIn = true
-                        UserDefaults.standard.set(isLoggedIn, forKey: kIsLoggedIn)
+                        UserDefaults.standard.set(isLoggedIn, forKey: UserDefaultsKeys.kIsLoggedIn)
                     }
                 }, label: {
                     Text("Register")
@@ -54,7 +55,7 @@ struct Onboarding: View {
               Home()
            }
            .onAppear {
-               self.isLoggedIn = UserDefaults.standard.bool(forKey: kIsLoggedIn)
+               self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultsKeys.kIsLoggedIn)
                self.firstName = ""
                self.lastName = ""
                self.email = ""
