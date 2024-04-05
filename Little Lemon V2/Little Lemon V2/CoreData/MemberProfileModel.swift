@@ -17,10 +17,10 @@ class MemberProfileModel: ObservableObject {
     @Published var email: String = ""
     @Published var phoneNumber: String = ""
     
-    @Published var emailOptionOrderStatus:Bool = false
-    @Published var emailOptionPasswordChanges:Bool = false
-    @Published var emailOptionSpecialOffer:Bool = false
-    @Published var emailOptionNewsletter:Bool = false
+    @Published var emailOptionOrderStatus:Bool = true
+    @Published var emailOptionPasswordChanges:Bool = true
+    @Published var emailOptionSpecialOffer:Bool = true
+    @Published var emailOptionNewsletter:Bool = true
     
     @Published private(set) var isLoggedIn: Bool = false
     
@@ -87,10 +87,10 @@ class MemberProfileModel: ObservableObject {
         self.email = ""
         self.phoneNumber = ""
         
-        self.emailOptionOrderStatus = false
-        self.emailOptionPasswordChanges = false
-        self.emailOptionSpecialOffer = false
-        self.emailOptionNewsletter = false
+        self.emailOptionOrderStatus = true
+        self.emailOptionPasswordChanges = true
+        self.emailOptionSpecialOffer = true
+        self.emailOptionNewsletter = true
         
         self.isLoggedIn = false
         
@@ -218,6 +218,47 @@ class MemberProfileModel: ObservableObject {
     
     
     // form validation
+    public func validateFirstName() -> (Bool, String) {
+        let isValid = isValid(name: self.firstName)
+        
+        guard isValid
+        else {
+            var invalidMessage = ""
+            if !isValid {
+                invalidMessage = "First name can only contain letters and must have at least 3 characters"
+            }
+            return (false, invalidMessage)
+        }
+        return (true, "")
+    }
+    
+    public func validateLastName() -> (Bool, String) {
+        let isValid = isValid(name: self.lastName)
+        
+        guard isValid
+        else {
+            var invalidMessage = ""
+            if !isValid {
+                invalidMessage = "Last name can only contain letters and must have at least 3 characters"
+            }
+            return (false, invalidMessage)
+        }
+        return (true, "")
+    }
+    
+    public func validateEmail() -> (Bool, String) {
+        let isValid = isValid(email: self.email)
+        
+        guard isValid
+        else {
+            var invalidMessage = ""
+            if !isValid {
+                invalidMessage = "The e-mail is invalid and cannot be blank"
+            }
+            return (false, invalidMessage)
+        }
+        return (true, "")
+    }
     
     public func validateText() -> (Bool, String) {
         let firstNameIsValid = isValid(name: self.firstName)
@@ -239,12 +280,12 @@ class MemberProfileModel: ObservableObject {
             
             var invalidPhoneMessage = ""
             if !phoneNumberIsValid {
-                invalidPhoneMessage = "The phone number can only contain numbers and cannot be blank.\n\n"
+                invalidPhoneMessage = "The phone number can only contain numbers and cannot be blank\n\n"
             }
             
             var invalidEmailMessage = ""
             if !emailIsValid {
-                invalidEmailMessage = "The e-mail is invalid and cannot be blank."
+                invalidEmailMessage = "The e-mail is invalid and cannot be blank"
             }
             
             let fieldAlertText = "Found these errors in the form:\n\n \(invalidFirstNameMessage)\(invalidLastNameMessage)\(invalidPhoneMessage)\(invalidEmailMessage)"

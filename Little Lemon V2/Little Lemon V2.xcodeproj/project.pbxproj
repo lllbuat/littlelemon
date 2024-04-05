@@ -17,6 +17,11 @@
 		AE2EF8272B95A54700663F18 /* FetchedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8262B95A54700663F18 /* FetchedObjects.swift */; };
 		AE2EF8292B95A58600663F18 /* MenuListStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF8282B95A58600663F18 /* MenuListStruct.swift */; };
 		AE2EF82B2B95A58E00663F18 /* MenuItemStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */; };
+		AE322E092BBFD175009DD177 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE322E082BBFD175009DD177 /* HomeView.swift */; };
+		AE322E0B2BBFD2C2009DD177 /* MenuViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE322E0A2BBFD2C2009DD177 /* MenuViewV2.swift */; };
+		AE322E0D2BBFD30A009DD177 /* UserProfileViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE322E0C2BBFD30A009DD177 /* UserProfileViewV2.swift */; };
+		AE322E0F2BBFD34B009DD177 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE322E0E2BBFD34B009DD177 /* OnboardingView.swift */; };
+		AE322E112BBFD946009DD177 /* NavBarViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE322E102BBFD946009DD177 /* NavBarViewV2.swift */; };
 		AE4C894A2BB137DB0069E4A6 /* OnboardingReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4C89492BB137DB0069E4A6 /* OnboardingReviewView.swift */; };
 		AE4C894C2BB139190069E4A6 /* NamedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4C894B2BB139180069E4A6 /* NamedText.swift */; };
 		AE4C894E2BB147850069E4A6 /* NavBarToolBarContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4C894D2BB147850069E4A6 /* NavBarToolBarContent.swift */; };
@@ -64,6 +69,11 @@
 		AE2EF8262B95A54700663F18 /* FetchedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedObjects.swift; sourceTree = "<group>"; };
 		AE2EF8282B95A58600663F18 /* MenuListStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuListStruct.swift; sourceTree = "<group>"; };
 		AE2EF82A2B95A58E00663F18 /* MenuItemStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemStruct.swift; sourceTree = "<group>"; };
+		AE322E082BBFD175009DD177 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AE322E0A2BBFD2C2009DD177 /* MenuViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewV2.swift; sourceTree = "<group>"; };
+		AE322E0C2BBFD30A009DD177 /* UserProfileViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewV2.swift; sourceTree = "<group>"; };
+		AE322E0E2BBFD34B009DD177 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AE322E102BBFD946009DD177 /* NavBarViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarViewV2.swift; sourceTree = "<group>"; };
 		AE4C89492BB137DB0069E4A6 /* OnboardingReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingReviewView.swift; sourceTree = "<group>"; };
 		AE4C894B2BB139180069E4A6 /* NamedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedText.swift; sourceTree = "<group>"; };
 		AE4C894D2BB147850069E4A6 /* NavBarToolBarContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarToolBarContent.swift; sourceTree = "<group>"; };
@@ -126,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				AE4C89502BB14B880069E4A6 /* NavBarView.swift */,
+				AE322E102BBFD946009DD177 /* NavBarViewV2.swift */,
 				AEFAB6542BABD16200653750 /* MenuCategoryButton.swift */,
 				AEFAB6582BABDBD200653750 /* HeroSectionView.swift */,
 				AEFAB65A2BABDD3500653750 /* NamedTextField.swift */,
@@ -140,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				AE73222C2B91BE31005B665B /* MenuView.swift */,
+				AE322E0A2BBFD2C2009DD177 /* MenuViewV2.swift */,
 				AE1388752BA3F18900480030 /* MenuItemView.swift */,
 				AE6868292BA92B5E00553104 /* SearchBarView.swift */,
 			);
@@ -226,6 +238,7 @@
 				AEFAB6562BABDB1B00653750 /* OnboardingProfileView.swift */,
 				AEF419752BAD2F1500308DE4 /* OnboardingPreferencesView.swift */,
 				AE4C89492BB137DB0069E4A6 /* OnboardingReviewView.swift */,
+				AE322E0E2BBFD34B009DD177 /* OnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -233,6 +246,7 @@
 		AEA309712B9ECFDC002969C1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				AE322E082BBFD175009DD177 /* HomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -241,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				AE2EF8242B95975700663F18 /* UserProfileView.swift */,
+				AE322E0C2BBFD30A009DD177 /* UserProfileViewV2.swift */,
 				AED9A13C2BBBA33500883219 /* UserProfileImageView.swift */,
 			);
 			path = UserProfile;
@@ -341,18 +356,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE8F3B0B2BB65CF20028092B /* SectionTitleView.swift in Sources */,
+				AE322E0D2BBFD30A009DD177 /* UserProfileViewV2.swift in Sources */,
 				AE4EB2922B9FEBE300E83EF0 /* Fonts.swift in Sources */,
 				AE4C894E2BB147850069E4A6 /* NavBarToolBarContent.swift in Sources */,
 				AE73221D2B91B925005B665B /* Persistence.swift in Sources */,
 				AE7322162B91B923005B665B /* ContentView.swift in Sources */,
 				AEA8D24B2BA1474F00BDCBF7 /* TempSample.swift in Sources */,
 				AE80BA502BA4F18B004CD953 /* DishesModel.swift in Sources */,
+				AE322E0F2BBFD34B009DD177 /* OnboardingView.swift in Sources */,
 				AE1388762BA3F18900480030 /* MenuItemView.swift in Sources */,
+				AE322E112BBFD946009DD177 /* NavBarViewV2.swift in Sources */,
 				AE4EB2942B9FF6AF00E83EF0 /* Colors.swift in Sources */,
 				AE4C894C2BB139190069E4A6 /* NamedText.swift in Sources */,
 				AE80BA532BA4F5D8004CD953 /* Dish+CoreDataClass.swift in Sources */,
 				AE08C2DE2B9EE98B00AEA573 /* FontFamilySample.swift in Sources */,
 				AE73222D2B91BE31005B665B /* MenuView.swift in Sources */,
+				AE322E092BBFD175009DD177 /* HomeView.swift in Sources */,
 				AEFAB65B2BABDD3500653750 /* NamedTextField.swift in Sources */,
 				AEFAB6552BABD16200653750 /* MenuCategoryButton.swift in Sources */,
 				AE27C36A2BBA70A700C2D748 /* MemberProfileModel.swift in Sources */,
@@ -371,6 +390,7 @@
 				AED099942BAD607C00B86AD8 /* CustomStyles.swift in Sources */,
 				AE7322202B91B925005B665B /* Little_Lemon_V2.xcdatamodeld in Sources */,
 				AE68682A2BA92B5E00553104 /* SearchBarView.swift in Sources */,
+				AE322E0B2BBFD2C2009DD177 /* MenuViewV2.swift in Sources */,
 				AE2EF82B2B95A58E00663F18 /* MenuItemStruct.swift in Sources */,
 				AEA622BD2B95B5FB004BFC8E /* DishExtension.swift in Sources */,
 				AE4EB2962B9FF95200E83EF0 /* UserDefaults.swift in Sources */,

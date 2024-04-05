@@ -64,7 +64,7 @@ struct OnboardingProfileView: View {
                             self.memberProfile.saveProfile()
                             
                             // go to next page
-                            path.append(OnboardingPreferencesView.tag)
+                            path.append(ViewTags.OnboardingPreferencesView)
                         }
                     } label: {
                         Text("Next")
@@ -95,7 +95,7 @@ struct OnboardingProfileView: View {
             .onAppear {
                 // if logged in, move to menu
                 if self.memberProfile.isLoggedIn {
-                    path.append(MenuView.tag)
+                    path.append(ViewTags.MenuView)
                 }
             }
         }
