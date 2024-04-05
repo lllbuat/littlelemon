@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 
+// adapted from apple tutorial
 struct UserProfileImageView: View {
     let imageState: MemberProfileModel.ImageState
     
