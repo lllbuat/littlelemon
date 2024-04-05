@@ -86,55 +86,7 @@ extension Dish: Identifiable {
         request.returnsObjectsAsFaults = true
         return request
     }
-//    
-//    
-//    static func with(name: String,
-//                     _ context:NSManagedObjectContext) -> Dish? {
-//        let request = Dish.request()
-//        
-//        let predicate = NSPredicate(format: "name == %@", name)
-//        request.predicate = predicate
-//        
-//        let sortDescriptor = NSSortDescriptor(key: "name",
-//                                              ascending: false,
-//                                              selector: #selector(NSString.localizedStandardCompare))
-//        request.sortDescriptors = [sortDescriptor]
-//        
-//        do {
-//            guard let results = try context.fetch(request) as? [Dish],
-//                  results.count == 1,
-//                  let dish = results.first
-//            else { return Dish(context: context) }
-//            return dish
-//        } catch (let error){
-//            print(error.localizedDescription)
-//            return nil
-//        }
-//    }
-//    
-//    static func delete(with name: String,
-//                       _ context:NSManagedObjectContext) -> Bool {
-//        let request = Dish.request()
-//        
-//        let predicate = NSPredicate(format: "name == %@", name)
-//        request.predicate = predicate
-//        
-//        do {
-//            guard let results = try context.fetch(request) as? [Dish],
-//                  results.count == 1,
-//                  let dish = results.first
-//            else {
-//                return false
-//            }
-//            context.delete(dish)
-//            return true
-//        } catch (let error){
-//            print(error.localizedDescription)
-//            return false
-//        }
-//    }
-//    
-//    
+
     class func deleteAll(_ context:NSManagedObjectContext) {
         let request = Dish.request()
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
@@ -148,28 +100,7 @@ extension Dish: Identifiable {
             print(error.localizedDescription)
         }
     }
-//    
-//    
-//    static func exists(name: String,
-//                       _ context:NSManagedObjectContext) -> Bool? {
-//        let request = Dish.request()
-//        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
-//        request.predicate = predicate
-//        
-//        do {
-//            guard let results = try context.fetch(request) as? [Dish]
-//            else {
-//                return nil
-//            }
-//            return results.count > 0
-//        } catch (let error){
-//            print(error.localizedDescription)
-//            return false
-//        }
-//    }
-//
-//
-//    
+
     static func save(_ context:NSManagedObjectContext) {
         guard context.hasChanges else { return }
         do {
@@ -178,20 +109,6 @@ extension Dish: Identifiable {
             print("Unresolved error \(error), \(error.userInfo)")
         }
     }
-//    
-//    
-//    class func readAll(_ context:NSManagedObjectContext) -> [Dish]? {
-//        let request = Dish.request()
-//        request.returnsDistinctResults = true
-//        do {
-//            guard let results = try context.fetch(request) as? [Dish],
-//                  results.count > 0 else { return nil }
-//            return results
-//        } catch (let error){
-//            print(error.localizedDescription)
-//            return nil
-//        }
-//    }
     
 }
 

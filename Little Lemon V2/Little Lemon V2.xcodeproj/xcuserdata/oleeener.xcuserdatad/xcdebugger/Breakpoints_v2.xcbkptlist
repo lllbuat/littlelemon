@@ -221,8 +221,8 @@
             filePath = "Little Lemon V2/CoreData/Dish+CoreDataProperties.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "save(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -237,8 +237,8 @@
             filePath = "Little Lemon V2/CoreData/Dish+CoreDataProperties.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "deleteAll(_:)"
             landmarkType = "7">
          </BreakpointContent>
