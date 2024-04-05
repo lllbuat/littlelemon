@@ -14,5 +14,13 @@ struct ViewTags {
     static let MenuView: String = "MenuView"
     static let UserProfileView: String = "UserProfileView"
     
-    static let NavBarView: String = "NavBarView"        
+    static let NavBarView: String = "NavBarView"   
+    
+    static let OnboardingView: String = "OnboardingView"
+    static let Onboarding2View: String = "Onboarding2View"
+    static let Onboarding3View: String = "Onboarding3View"
+    static let MenuViewV2: String = "MenuViewV2"
+    static let UserProfileViewV2: String = "UserProfileViewV2"
+    static let HomeView: String = "HomeView"
+    
 }

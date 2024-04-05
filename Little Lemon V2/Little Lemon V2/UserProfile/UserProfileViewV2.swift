@@ -1,17 +1,16 @@
 //
-//  UserProfile.swift
+//  UserProfileViewV2.swift
 //  Little Lemon V2
 //
-//  Created by Renee Lo on 4/3/2024.
+//  Created by Renee Lo on 5/4/2024.
 //
 
 import SwiftUI
 import PhotosUI
 
-struct UserProfileView: View {
-    static let tag = ViewTags.UserProfileView
-    @Binding var path: NavigationPath
-    
+struct UserProfileViewV2: View {
+    static let tag = ViewTags.UserProfileViewV2
+    @Binding var popToRoot: Bool
     @ObservedObject var memberProfile: MemberProfileModel
     
     @State private var alertText = ""
@@ -21,16 +20,6 @@ struct UserProfileView: View {
     
     var body: some View {
         VStack {
-            NavBarView(path: $path, memberProfile: memberProfile, showProfileBtn: false, backBtnHandler: {
-                // show alert and move to home
-                if self.memberProfile.hasProfileBeenEdited() {
-                    self.disgardConfirmText = "Unsaved changes. Confirm to disgard?"
-                    self.showDisgardConfirmAlert = true
-                } else {
-                    path.removeLast()
-                }
-            })
-            
             SectionTitleView(title: "Personal Information")
             
             Text("Avatar")
@@ -79,8 +68,9 @@ struct UserProfileView: View {
                         Toggle("Newsletter", isOn: $memberProfile.emailOptionNewsletter)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .toggleStyle(CheckboxStyle())
+//                    .toggleStyle(CheckboxStyle())
                     .font(Font(Fonts.ParagraphText))
+                    .padding(.trailing, 10)
                 }
             }
             
@@ -89,8 +79,8 @@ struct UserProfileView: View {
             Button {
                 // reset all user default values
                 self.memberProfile.clearProfile()
-                
-                path.removeLast(path.count)
+                self.popToRoot = true
+//                path.removeLast(path.count)
             } label: {
                 Text("Log out")
                     .frame(maxWidth: .infinity)
@@ -119,7 +109,7 @@ struct UserProfileView: View {
                             Text("Confirm"),
                             action: {
                                 self.memberProfile.loadProfile()
-                                path.removeLast()
+//                                path.removeLast()
                             }
                         )
                     )
@@ -154,11 +144,15 @@ struct UserProfileView: View {
         .onAppear {
             self.memberProfile.loadProfile()
         }
+//        .onDisappear {
+//            if self.memberProfile.hasProfileBeenEdited() {
+//                self.disgardConfirmText = "Unsaved changes. Confirm to disgard?"
+//                self.showDisgardConfirmAlert = true
+//            }
+//        }
     }
 }
 
 //#Preview {
-//    UserProfile()
+//    UserProfileViewV2()
 //}
-
-

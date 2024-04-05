@@ -1,15 +1,14 @@
 //
-//  Menu.swift
+//  MenuViewV2.swift
 //  Little Lemon V2
 //
-//  Created by Renee Lo on 1/3/2024.
+//  Created by Renee Lo on 5/4/2024.
 //
 
 import SwiftUI
 
-struct MenuView: View {
-    static let tag = ViewTags.MenuView
-    @Binding var path: NavigationPath
+struct MenuViewV2: View {
+    static let tag = ViewTags.MenuViewV2
                 
     @ObservedObject var dishesModel = DishesModel()
     @ObservedObject var memberProfile: MemberProfileModel
@@ -22,17 +21,15 @@ struct MenuView: View {
     var ls_menuCategories = ["Starters", "Mains", "Desserts", "Drinks"]
     
     var body: some View {
-        VStack {            
-            NavBarView(path: $path, memberProfile: memberProfile, showBackBtn: false)
-            
+        VStack {
             HeroSectionView()
                 .frame(maxHeight: 300)
             
             SearchBarView(fontToUse: Fonts.CardTitle, searchText: $searchText)
                 .padding(10)
                 .background(Colors.DarkGreen)
-                .offset(y: -20)        
-            
+                .offset(y: -20)
+                        
             VStack {
                 Text("Order for Delivery!")
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,6 +75,9 @@ struct MenuView: View {
             
             Spacer()
         }
+//        .onAppear() {
+//            let _ = print(String(Dish.countRecords(viewContext)))
+//        }
         .task {
             await dishesModel.fetchData(viewContext)
         }
@@ -104,8 +104,6 @@ struct MenuView: View {
 
 }
 
-
-
 //#Preview {
-//    Menu()
+//    MenuViewV2()
 //}
